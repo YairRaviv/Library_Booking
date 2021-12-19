@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/drawable/bg_round.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_main3.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/progress_dialog.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/drawable/floor_a_layout.xml" value="0.3828125" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main.xml" value="0.30816831683168316" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main_new.xml" value="0.2" />
