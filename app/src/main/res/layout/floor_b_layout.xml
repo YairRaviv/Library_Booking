@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/floorBBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/floor_b_background_empty"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <LinearLayout
+                android:id="@+id/floorB_row_top"
+                android:layout_width="480dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <Button
+                    android:id="@+id/floorB_table17"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table18"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table19"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table20"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/floorB_column_left"
+                android:layout_width="100dp"
+                android:layout_height="240dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                app:layout_constraintVertical_bias="0.171">
+
+                <Button
+                    android:id="@+id/floorB_table9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/floorB_row_right"
+                android:layout_width="360dp"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.786"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.048">
+
+
+                <Button
+                    android:id="@+id/floorB_table21"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table22"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table23"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="840dp"
+                android:layout_height="100dp"
+                android:onClick="tableClick"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView3"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="@+id/floorBBackground"
+                app:layout_constraintVertical_bias="1.0">
+
+
+                <Button
+                    android:id="@+id/floorB_table1"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table2"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table3"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table4"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table5"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table6"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/floorB_table7"
+                    android:layout_width="80dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="196dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.454"
+                app:layout_constraintStart_toEndOf="@+id/textView12">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="36dp"
+                    android:layout_height="260dp"
+                    android:background="@color/light_green"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.7" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="100dp"
+                    android:layout_height="240dp"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <Button
+                        android:id="@+id/floorB_table12"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/table_available"
+                        android:onClick="tableClick"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <Button
+                        android:id="@+id/floorB_table11"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/table_available"
+                        android:onClick="tableClick"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="36dp"
+                    android:layout_height="260dp"
+                    android:background="@color/light_green"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.704" />
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="240dp"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <Button
+                        android:id="@+id/floorB_table14"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/table_available"
+                        android:onClick="tableClick"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <Button
+                        android:id="@+id/floorB_table13"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/table_available"
+                        android:onClick="tableClick"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/floor_a_background_empty" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="36dp"
+                    android:layout_height="260dp"
+                    android:background="@color/light_green"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.706" />
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="240dp"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <Button
+                        android:id="@+id/floorB_table16"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/table_available"
+                        android:onClick="tableClick"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <Button
+                        android:id="@+id/floorB_table15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/table_available"
+                        android:onClick="tableClick"
+                        app:backgroundTint="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="302dp"
+                android:layout_height="273dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="36dp"
+                android:background="@color/light_green"
+                android:gravity="center"
+                android:text="Bookshelves"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="171dp"
+                android:layout_height="59dp"
+                android:background="@color/light_blue"
+                android:gravity="center"
+                android:text="Entrance"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="309dp"
+                android:layout_height="285dp"
+                android:gravity="center"
+                android:text="Classrooms"
+                android:textSize="20dp"
+                android:background="@color/brown"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@color/black"
+                android:backgroundTint="@null"
+                android:text="&lt;"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="171dp"
+                android:layout_height="59dp"
+                android:background="@color/light_blue"
+                android:gravity="center"
+                android:text="Entrance"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/floorB_column_left_second"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_marginEnd="172dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/floorB_column_left"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                app:layout_constraintVertical_bias="0.063">
+
+                <Button
+                    android:id="@+id/floorB_table10"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/table_available"
+                    android:onClick="tableClick"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

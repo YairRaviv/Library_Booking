@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+             android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="50dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/row1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <Button
+                    android:id="@+id/row1_table1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/row1_table2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row1_table1"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/row1_table3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row1_table2"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/row1_table4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row1_table3"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/row2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/row1"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/row2_table1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/row2_table2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row2_table1"
+                    android:layout_marginBottom="140dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+
+
+                <Button
+                    android:id="@+id/row2_table4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row2_table2"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/row3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/row2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/row3_table1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/row3_table2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row3_table1"
+                    android:layout_marginBottom="260dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/row4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/row3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/row4_table1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="380dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/row5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/row4"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/row5_table1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="260dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <Button
+                    android:id="@+id/row5_table4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row5_table1"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/row6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/row5"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/row6_table3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="240dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintEnd_toStartOf="@+id/row6_table4" />
+
+                <Button
+                    android:id="@+id/row6_table4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row6_table3"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/row7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/row6"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <Button
+                    android:id="@+id/row7_table1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/row7_table2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row7_table1"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/row7_table3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row7_table2"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/row7_table4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/row7_table3"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/table_with_chairs"
+                    android:text="3/6"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:backgroundTint="@null" />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
