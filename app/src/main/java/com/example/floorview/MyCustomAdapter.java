@@ -13,14 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> list = new ArrayList<String>();
+    private List<Reservation> list;
     private Context context;
     DBConnector dbConnector;
     ProgressDialog progress;
 
-    public MyCustomAdapter(ArrayList<String> list, Context context) {
+    public MyCustomAdapter(List<Reservation> list, Context context) {
         this.dbConnector = DBConnector.getInstance();
         this.list = list;
         this.context = context;
@@ -51,7 +52,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
 
         //Handle TextView and display string from the list
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
-        listItemText.setText(list.get(position));
+        listItemText.setText(list.get(position).toString());
 
         //Handle buttons and add onClickListeners
         Button cancelBtn = (Button)view.findViewById(R.id.cancel_btn);
@@ -79,7 +80,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                 progress.dismiss();
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
-                Toast.makeText(v.getContext(), "Reservation "+reservationId+" has ben cancelld!", Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), "Reservation "+reservationId+" has been canceled", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -92,6 +93,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 arrivedBtn.setEnabled(false);
+                notifyDataSetChanged();
                 progress = new ProgressDialog(v.getContext());
                 progress.show();
                 progress.setContentView(R.layout.progress_dialog);
@@ -104,7 +106,6 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                 String queryString = "UPDATE Reservations SET Arrived = 'Yes' WHERE reservationId = "+ reservationId;
                 dbConnector.executeUpdate(queryString);
                 progress.dismiss();
-                notifyDataSetChanged();
             }
         });
         return view;

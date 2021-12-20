@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -26,6 +28,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
@@ -33,12 +36,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StudentBookChairActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
-
+    String userId;
     private TextView dateText;
     private TextView timeText;
     private TextView emptyText;
+    String floor;
     int hour, minute;
     int saturday;
     DBConnector dbConnector;
@@ -46,12 +51,14 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
     boolean isSuccess = false;
     DatePickerDialog datePickerDialog;
     int selected_date;
+    List<Reservation> reservationsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_bookchair_activity);
-
+        Bundle bundle = getIntent().getExtras();
+        userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
 //        try {
 //            userReservationsView();
@@ -65,7 +72,6 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setPrompt("Select Floor");
         mySpinner.setAdapter(myAdapter);
-
         try {
             initiateReservations();
         } catch (SQLException | ParseException throwables) {
@@ -82,10 +88,9 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
     private void initiateReservations() throws SQLException, ParseException {
         System.out.println("in MyReservations()");
         ListView listview = (ListView) findViewById(R.id.listview);
-        List<Map<String,String>> mydataList = null;
-        mydataList =  getData();
+        reservationsList =  getData();
         // user has no reservations yet
-        if (mydataList.isEmpty()){
+        if (reservationsList.isEmpty()){
             ListView lv = (ListView)findViewById(R.id.listview);
             emptyText = (TextView)findViewById(R.id.empty);
             emptyText.setText("You Have No Reservations");
@@ -93,25 +98,6 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         }
         else {
             System.out.println("after userReservationsView()");
-            ArrayList<String> reservationsList = new ArrayList<String>();
-            Map<String, String> reservationDetails = new HashMap<String, String>();
-            for (int i = 0; i < mydataList.size(); i++) {
-                System.out.println("gets reservation: " + i);
-                reservationDetails = mydataList.get(i);
-                Reservation currReservation = new Reservation(Integer.parseInt(reservationDetails.get("reservationId")),
-                        reservationDetails.get("floor").charAt(0),
-                        reservationDetails.get("tableId"),
-                        Date.valueOf(reservationDetails.get("reservationDate")),
-                        Time.valueOf(reservationDetails.get("startTime")),
-                        Time.valueOf(reservationDetails.get("endTime")));
-                reservationsList.add(currReservation.toString());
-            }
-
-            //generate list
-            ArrayList<String> list = new ArrayList<String>();
-            list.add("item1");
-            list.add("item2");
-
             //instantiate custom adapter
             MyCustomAdapter myAdapter = new MyCustomAdapter(reservationsList, this);
 
@@ -124,19 +110,16 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(StudentBookChairActivity.this, "Start", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        Toast.makeText(StudentBookChairActivity.this, "Pause", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        Toast.makeText(StudentBookChairActivity.this, "Stopp", Toast.LENGTH_LONG).show();
     }
 
     private void showDatePickerDialog() throws SQLException, ParseException {
@@ -155,12 +138,10 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         int num_of_days = 3;
         Calendar curr;
 
-        List<Map<String,String>> userReservations = null;
-        userReservations = getData();
         List<String> chosen_dates = new ArrayList();
-        if (userReservations != null){
-            for (int i=0; i<userReservations.size(); i++){
-                String dateString = userReservations.get(i).get("reservationDate");
+        if (reservationsList != null){
+            for (int i=0; i<reservationsList.size(); i++){
+                String dateString = (reservationsList.get(i).reservationDate).toString();
 //                SimpleDateFormat formatter = new SimpleDateFormat(dateString);
 //                Date date = formatter.parse(dateString);
 //                Calendar calendar = Calendar.getInstance();
@@ -176,8 +157,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
                 days.add(curr);
             }
             // Disable saturdays
-            else if (userReservations != null){
-                Date date = (Date) curr.getTime();
+            else if (reservationsList != null){
                 String year = String.valueOf(curr.get(Calendar.YEAR));
                 String day = String.valueOf(curr.get(Calendar.DAY_OF_MONTH));
                 String month = String.valueOf(curr.get(Calendar.MONTH)+1);
@@ -229,9 +209,6 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
                 true);
         timePickerDialog.setTitle("Select Time");
 
-
-
-
         timePickerDialog.show();
     }
 
@@ -253,8 +230,19 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         int year = datePickerDialog.getSelectedDay().getYear();
         int hour = hourOfDay;
         int min = minute;
-        String time = String.format(Locale.getDefault(), "%02d:%02d", hour, min);
-        timeText.setText(time);
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        String currTimeString = (currentHour>=10? currentHour: "0"+currentHour)+":"+(currentMinute>=10? currentMinute: "0"+currentMinute)+":00";
+        Time current_time = Time.valueOf(currTimeString);
+        Time selectedTime = Time.valueOf((hour>=10? hourOfDay: "0"+hour)+":"+(minute>=10? minute: "0"+minute)+":00");
+        if(selectedTime.before(current_time)){
+            Toast.makeText(StudentBookChairActivity.this, "Can't select time before "+current_time, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            String time = String.format(Locale.getDefault(), "%02d:%02d", hour, min);
+            timeText.setText(time);
+        }
     }
 
     public void FloorNumber(View view) {
@@ -266,82 +254,41 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         finish();
     }
 
-    public List<Map<String,String>> getData() throws SQLException {
-        String id = "829189";
-        //829189,316291996
-        String queryString = "SELECT * FROM Reservations WHERE userId = '"+id+"'";
+    public List<Reservation> getData() throws SQLException {
+        String queryString = "SELECT * FROM Reservations WHERE userId = '" + userId + "'";
         ResultSet result = dbConnector.executeQuery(queryString);
-        List<String> userReservations = new ArrayList<>();
+        List<Reservation> userReservations = new ArrayList<>();
         String reservationId = "";
         List<Map<String, String>> data = new ArrayList();
         if (result != null) {
             try {
                 while (result.next()) {
-                    reservationId = result.getString("reservationId");
-                    userReservations.add(reservationId);
+                    Map<String, String> dtname = new HashMap<String, String>();
+                    Reservation currReservation = new Reservation(result.getInt("reservationId"),
+                            result.getString("floor").charAt(0),
+                            result.getString("tableId"),
+                            result.getDate("reservationDate"),
+                            result.getTime("startTime"),
+                            result.getTime("endTime"));
+                    userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            int number_of_reservations = userReservations.size();
-            if (number_of_reservations == 0) {
-                System.out.println("No User Reservations Yet!!!");
-            } else {
-                for (int i = 0; i < userReservations.size(); i++) {
-                    reservationId = userReservations.get(i);
-                    System.out.println("User Reservation Id is " + reservationId);
-
-                    queryString = "SELECT * FROM Reservations WHERE reservationId = '" + reservationId + "'";
-                    result = dbConnector.executeQuery(queryString);
-                    while (result.next()) {
-                        System.out.println("in loop");
-                        Map<String, String> dtname = new HashMap<String, String>();
-                        dtname.put("reservationId", String.valueOf(result.getInt("reservationId")));
-                        dtname.put("floor", result.getString("floor"));
-                        dtname.put("tableId", result.getString("tableId"));
-                        dtname.put("reservationDate", result.getDate("reservationDate").toString());
-                        dtname.put("startTime", result.getTime("startTime").toString());
-                        dtname.put("endTime", result.getTime("endTime").toString());
-                        data.add(dtname);
-                    }
-                    System.out.println("After loop");
-                    connectionResult = "Success";
-                    isSuccess = true;
-                    //dbConnector.close();
-                }
-            }
+            System.out.println("Before return data");
+            //need to go over userReservations and get all user reservations details
         }
-        else{
-            connectionResult = "Failed";
-            System.out.println("Result is null - User has no Reservations Yet!!!");
-        }
-        System.out.println("Before return data");
-        return data;
-        //need to go over userReservations and get all user reservations details
+        return userReservations;
     }
 
     SimpleAdapter sa;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void MyReservations(View view) throws SQLException {
         System.out.println("in MyReservations()");
         ListView listview = (ListView) findViewById(R.id.listview);
-        List<Map<String,String>> mydataList = null;
-        mydataList =  getData();
         System.out.println("after userReservationsView()");
         ArrayAdapter<String> adapter;
-        ArrayList<String> reservationsList=new ArrayList<String>();
-        Map<String, String> reservationDetails = new HashMap<String, String>();
-        for(int i=0; i<mydataList.size(); i++) {
-            System.out.println("gets reservation: "+i);
-            reservationDetails = mydataList.get(i);
-            Reservation currReservation = new Reservation(Integer.parseInt(reservationDetails.get("reservationId")),
-                    reservationDetails.get("floor").charAt(0),
-                    reservationDetails.get("tableId"),
-                    Date.valueOf(reservationDetails.get("reservationDate")),
-                    Time.valueOf(reservationDetails.get("startTime")),
-                    Time.valueOf(reservationDetails.get("endTime")));
-            reservationsList.add(currReservation.toString());
-        }
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reservationsList){
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reservationsList.stream().map(reservation -> reservation.toString()).collect(Collectors.toList())){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 View view = super.getView(position, convertView, parent);
@@ -352,6 +299,23 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         };;
         //adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reservationsList);
         listview.setAdapter(adapter);
+    }
+
+    public void SelectTableButton(View view) throws SQLException, ParseException {
+        Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
+        floor = String.valueOf(mySpinner.getSelectedItem());
+        Intent intent = new Intent(StudentBookChairActivity.this, FloorActivity.class);
+        char level = floor.charAt(0);
+        String [] dateStringArr = dateText.getText().toString().split("/");
+        String dateString = dateStringArr[2]+"-"+dateStringArr[0]+"-"+dateStringArr[1];
+        String timeString = timeText.getText().toString()+":00";
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
+        bundle.putChar("level", level);
+        bundle.putString("date",dateString);
+        bundle.putString("startTime", timeString);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 }

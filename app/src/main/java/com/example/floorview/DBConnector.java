@@ -75,7 +75,7 @@ public class DBConnector {
         String connectionUrl = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectionUrl = "jdbc:mysql://"+dbUrl+":"+dbPort+"/"+dbName;
+            connectionUrl = "jdbc:mysql://"+dbUrl+":"+dbPort+"/"+dbName+"?enabledTLSProtocols=TLSv1.2";
             connection = DriverManager.getConnection(connectionUrl, userName, userPassword);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

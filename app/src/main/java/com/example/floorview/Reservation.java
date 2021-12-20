@@ -33,4 +33,13 @@ public class Reservation implements Comparable<Reservation> {
         Reservation other = (Reservation) resObj;
         return reservationId == other.reservationId;
     }
+    public String toString(){
+        String table_exact_number = tableId.substring(12,tableId.length());
+        return "Reservation "+this.reservationId+"\n"+
+                "Floor "+this.floor+"\n"+
+                "Table "+table_exact_number+"\n"+
+                "Date "+this.reservationDate+"\n"+
+                "Start "+this.startTime+"\n"+
+                "End "+this.endTime;
+    }
 }

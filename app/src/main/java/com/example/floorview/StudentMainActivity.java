@@ -15,11 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class StudentMainActivity extends AppCompatActivity {
     ProgressDialog progress;
+    String userId;
     TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        userId = bundle.getString("userId");
         setContentView(R.layout.student_main_activity);
         // Toast.makeText(StudentMainActivity.this, "Your Text", Toast.LENGTH_LONG).show();
         tv = (TextView)findViewById(R.id.button6);
@@ -52,6 +55,7 @@ public class StudentMainActivity extends AppCompatActivity {
     public void BookChairButton(View view) {
         //Toast.makeText(MainActivity.this, "You clicked on BookChairButton button", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(StudentMainActivity.this, StudentBookChairActivity.class);
+        intent.putExtra("id",userId);
         startActivity(intent);
     }
 

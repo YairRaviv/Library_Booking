@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "832324025374",
+    "firebase_url": "https://arieluniversitylibrary-default-rtdb.firebaseio.com",
+    "project_id": "arieluniversitylibrary",
+    "storage_bucket": "arieluniversitylibrary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832324025374:android:057f71b304beafaa56c20f",
+        "android_client_info": {
+          "package_name": "com.example.floorview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832324025374-nsncb98lgf0o019hj22cgnm0s5h6cenl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf57bjZZP-2LzG-vzegUAkIK8J3T_8YVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832324025374-nsncb98lgf0o019hj22cgnm0s5h6cenl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832324025374:android:39950f20ecdf78ab56c20f",
+        "android_client_info": {
+          "package_name": "com.example.myfirstapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832324025374-nsncb98lgf0o019hj22cgnm0s5h6cenl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf57bjZZP-2LzG-vzegUAkIK8J3T_8YVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832324025374-nsncb98lgf0o019hj22cgnm0s5h6cenl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

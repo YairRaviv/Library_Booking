@@ -1,7 +1,9 @@
 package com.example.floorview;
 
 
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -109,20 +111,6 @@ public class FloorActivity extends AppCompatActivity {
                 }
             }
         }
-//        for(String tableId : floorTablesState.keySet()){
-//            int tableResourceId = getResources().getIdentifier(tableId, "id", getPackageName());
-//            Button tableUiObject = (Button) findViewById(tableResourceId);
-//            if(tableUiObject != null) {
-//                Table table = floorTablesState.get(tableId);
-//                if (table.status == TableStatus.available) {
-//                    tableUiObject.setBackground(ContextCompat.getDrawable(this.getBaseContext(), R.drawable.table_available));
-//                }
-//                else{
-//                    tableUiObject.setBackground(ContextCompat.getDrawable(this.getBaseContext(), R.drawable.table_taken));
-//                }
-//                tableUiObject.setText(table.name);
-//            }
-//        }
     }
 
     private void showtimePickerDialog(){
@@ -206,6 +194,11 @@ public class FloorActivity extends AppCompatActivity {
                 else{
                     try {
                         floor.addReservationToDB(clickedTableId, selectedEndTime, userId);
+                        Intent intent = new Intent(FloorActivity.this, StudentBookChairActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", userId);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     } catch (Exception e) {
                         initiateViewDataOnStart();
                         Toast.makeText(FloorActivity.this, "Selected table state has changed, please select again", Toast.LENGTH_LONG).show();
