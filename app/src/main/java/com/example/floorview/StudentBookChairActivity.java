@@ -230,28 +230,8 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         int year = datePickerDialog.getSelectedDay().getYear();
         int hour = hourOfDay;
         int min = minute;
-        Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        String currTimeString = (currentHour>=10? currentHour: "0"+currentHour)+":"+(currentMinute>=10? currentMinute: "0"+currentMinute)+":00";
-        Time current_time = Time.valueOf(currTimeString);
-        Time selectedTime = Time.valueOf((hour>=10? hourOfDay: "0"+hour)+":"+(minute>=10? minute: "0"+minute)+":00");
-        if(selectedTime.before(current_time)){
-            Toast.makeText(StudentBookChairActivity.this, "Can't select time before "+current_time, Toast.LENGTH_SHORT).show();
-        }
-        else{
-            String time = String.format(Locale.getDefault(), "%02d:%02d", hour, min);
-            timeText.setText(time);
-        }
-    }
-
-    public void FloorNumber(View view) {
-        Toast.makeText(StudentBookChairActivity.this, "You chose a floor", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(StudentBookChairActivity.this, MainActivity3.class);
-        String str = view.getContext().toString();
-        intent.putExtra("number_of_floor_key", str);
-        startActivity(intent);
-        finish();
+        String time = String.format(Locale.getDefault(), "%02d:%02d", hour, min);
+        timeText.setText(time);
     }
 
     public List<Reservation> getData() throws SQLException {
