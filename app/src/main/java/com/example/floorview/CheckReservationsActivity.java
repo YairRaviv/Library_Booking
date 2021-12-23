@@ -22,7 +22,7 @@ Intent callIntent = new Intent(Intent.ACTION_CALL);
  */
 
 
-public class CheckReservations extends AppCompatActivity
+public class CheckReservationsActivity extends AppCompatActivity
 {
     DBConnector dbConnector;
     String userId;

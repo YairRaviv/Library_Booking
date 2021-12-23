@@ -42,7 +42,8 @@ public class Login_Registration_Screen extends AppCompatActivity
         RealTimeDB = FirebaseDatabase.getInstance().getReference();
         AuthDB = FirebaseAuth.getInstance();
 
-        OnClickLogin.setOnClickListener(view -> {
+        OnClickLogin.setOnClickListener(view ->
+        {
 
             String email = TxtUserName.getText().toString();
             String password = TxtPassword.getText().toString();
@@ -67,7 +68,6 @@ public class Login_Registration_Screen extends AppCompatActivity
         });
         OnClickRegister.setOnClickListener(view ->
         {
-
             Intent intent = new Intent(Login_Registration_Screen.this , Registration_Screen.class);
             startActivity(intent);
         });
@@ -114,7 +114,7 @@ public class Login_Registration_Screen extends AppCompatActivity
                             {
                                 User current_user =  task.getResult().getValue(User.class);
                                 assert current_user != null;
-                                lcs[0] = current_user._lecturerCode;
+                                lcs[0] = current_user._librarianCode;
                             }
                         }
                     });
@@ -122,7 +122,7 @@ public class Login_Registration_Screen extends AppCompatActivity
                     if(lc!=0)
                     {
                         //move to main screen - librarian
-                        Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
+                        Intent intent = new Intent(Login_Registration_Screen.this, LibrarianMainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("id",AuthDB.getCurrentUser().getUid());
                         startActivity(intent);

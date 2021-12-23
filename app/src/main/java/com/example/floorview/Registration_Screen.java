@@ -23,7 +23,7 @@ public class Registration_Screen extends AppCompatActivity
 {
     private DatabaseReference RealTimeDB;
     private FirebaseAuth AuthDB;
-    EditText ID , Password , Email , Lecturercode;
+    EditText ID , Password , Email , LibrarianCode;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -34,7 +34,7 @@ public class Registration_Screen extends AppCompatActivity
         ID = (EditText)findViewById(R.id.ID);
         Password = (EditText)findViewById(R.id.Password);
         Email = (EditText)findViewById(R.id.Email);
-        Lecturercode = (EditText)findViewById(R.id.Lecturer_code);
+        LibrarianCode = (EditText)findViewById(R.id.Lecturer_code);
 
     }
 
@@ -46,9 +46,9 @@ public class Registration_Screen extends AppCompatActivity
         mail = Email.getText().toString();
         pass = Password.getText().toString();
         // lecturer code should be a known one , so this condition will be : if(LecturerCodes.contains(Lecturercode.getText().toString()))
-        if (Lecturercode.getText().toString() != null || Lecturercode.getText().toString() != "")
+        if (LibrarianCode.getText().toString() != null || LibrarianCode.getText().toString() != "")
         {
-            lecturercode = Integer.parseInt(Lecturercode.getText().toString());
+            lecturercode = Integer.parseInt(LibrarianCode.getText().toString());
         }
         else
         {

@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckReservations">
+    tools:context=".CheckReservationsActivity">
 
+    <ListView
+        android:id="@+id/RequestsListView"
+        android:layout_width="396dp"
+        android:layout_height="695dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReservations"
+        app:layout_constraintVertical_bias="0.968" />
 </androidx.constraintlayout.widget.ConstraintLayout>
