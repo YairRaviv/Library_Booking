@@ -10,6 +10,7 @@ public abstract class ReservableObject {
     public Time maxTimeToBook;
     public Time startTime;
     public String description;
+    public ReservableObjectStatus status;
     protected ArrayList<Reservation> reservations;
 
     public ReservableObject(String id, Time maxTimeToBook, Time startTime){
@@ -17,6 +18,7 @@ public abstract class ReservableObject {
         this.id = id;
         this.maxTimeToBook = maxTimeToBook;
         this.startTime = startTime;
+        this.status = ReservableObjectStatus.available;
     }
 
     public ReservableObject(String id, Time maxTimeToBook, Time startTime, String name){
@@ -25,6 +27,7 @@ public abstract class ReservableObject {
         this.maxTimeToBook = maxTimeToBook;
         this.startTime = startTime;
         this.name = name;
+        this.status = ReservableObjectStatus.available;
     }
 
     abstract void addReservation(Reservation reservation);

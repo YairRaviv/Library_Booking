@@ -27,7 +27,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".FloorActivity"
+            android:name=".FloorActivityTable"
             android:exported="true">
         </activity>
         <activity

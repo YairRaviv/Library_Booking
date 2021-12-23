@@ -1,6 +1,6 @@
 package com.example.floorview;
 
-public enum ReservedObjecType {
+public enum ReservedObjectType {
     table,
     classroom
 }

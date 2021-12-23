@@ -2,12 +2,17 @@ package com.example.floorview;
 
 import java.util.HashMap;
 
-public class Floor {
+public class FloorData {
     private char floor;
     private int numTablesInFloor;
     private int numClassroomsInFloor;
 
+    public FloorData(char floor){
+        this.floor = floor;
+        setNumTableInFloor();
+        setNumClassroomsInFloor();
 
+    }
 
 
     private void setNumTableInFloor() {
@@ -40,5 +45,15 @@ public class Floor {
                 numTablesInFloor=5;
                 break;
         }
+    }
+
+    public int getNumRelevantObjectsInFloor(ReservedObjectType reservedObjectType) {
+        if(reservedObjectType == ReservedObjectType.table){
+            return numTablesInFloor;
+        }
+        else{
+            return numClassroomsInFloor;
+        }
+
     }
 }
