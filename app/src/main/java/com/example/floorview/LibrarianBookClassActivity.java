@@ -33,7 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class StudentBookClassActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+public class LibrarianBookClassActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     String userId;
     private TextView dateText;
     private TextView timeText;
@@ -51,7 +51,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.student_bookclass_activity);
+        setContentView(R.layout.librarian_bookclass_activity);
         Bundle bundle = getIntent().getExtras();
         userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
@@ -63,7 +63,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
 
         // Spinner
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(StudentBookClassActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.floors));
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(LibrarianBookClassActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.floors));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setPrompt("Select Floor");
         mySpinner.setAdapter(myAdapter);
@@ -72,9 +72,9 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
         }
-        Button show_start_time_dialog = (Button) StudentBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
+        Button show_start_time_dialog = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
         show_start_time_dialog.setEnabled(false);
-        Button btnReservations = (Button) StudentBookClassActivity.this.findViewById(R.id.btnReservations);
+        Button btnReservations = (Button) LibrarianBookClassActivity.this.findViewById(R.id.btnReservations);
         btnReservations.setEnabled(false);
 
 
@@ -165,8 +165,8 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         Calendar[] disabledDays = days.toArray(new Calendar[days.size()]);
         datePickerDialog.setDisabledDays(disabledDays);
         datePickerDialog.setThemeDark(true);
-        datePickerDialog.show(StudentBookClassActivity.this.getFragmentManager(), "DatePickerDialog");
-        Button show_start_time_dialog = (Button) StudentBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
+        datePickerDialog.show(LibrarianBookClassActivity.this.getFragmentManager(), "DatePickerDialog");
+        Button show_start_time_dialog = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
         show_start_time_dialog.setEnabled(true);
 
     }
@@ -219,7 +219,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
 
         Calendar datetime = Calendar.getInstance();
         Calendar c = Calendar.getInstance();
-        Button show_date_dialog = (Button) StudentBookClassActivity.this.findViewById(R.id.show_date_dialog);
+        Button show_date_dialog = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_date_dialog);
         int day = datePickerDialog.getSelectedDay().getDay();
         int month = datePickerDialog.getSelectedDay().getMonth() + 1;
         int year = datePickerDialog.getSelectedDay().getYear();
@@ -279,7 +279,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
     public void SelectClassButton(View view) throws SQLException, ParseException {
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         floor = String.valueOf(mySpinner.getSelectedItem());
-        Intent intent = new Intent(StudentBookClassActivity.this, FloorActivity.class);
+        Intent intent = new Intent(LibrarianBookClassActivity.this, FloorActivity.class);
         char level = floor.charAt(0);
         String [] dateStringArr = dateText.getText().toString().split("/");
         String dateString = dateStringArr[2]+"-"+dateStringArr[0]+"-"+dateStringArr[1];
