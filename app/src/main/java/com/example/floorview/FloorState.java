@@ -16,21 +16,20 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class Floor extends AppCompatActivity {
+public class FloorStateTable<T> implements FloorState {
     static final Time absoluteMaxTime = Time.valueOf("20:00:00");
     ArrayList<Reservation> reservationsList;
     char floorLevel;
     String reservationDate;
     String startTime;
     DBConnector dbConnector;
-    HashMap<String, Table> floorState;
+    HashMap<String, T> floorState;
     public Time maxEndTime;
-    final int numSeatsInTable = 8;
     int numTablesInFloor;
 
 
 
-    public Floor(char floorLevel, String reservationDate, String startTime) {
+    public FloorStateTable(char floorLevel, String reservationDate, String startTime) {
         this.floorLevel = floorLevel;
         this.reservationDate = reservationDate;
         this.startTime = startTime;
@@ -106,6 +105,7 @@ public class Floor extends AppCompatActivity {
     }
 
 
+    @Override
     public HashMap<String, Table> getFloorState() {
         reservationsList = getUpdatedReservationsFromDB();
         HashMap<String, Table> floorTableState = new HashMap<>();
@@ -120,7 +120,7 @@ public class Floor extends AppCompatActivity {
                 }
             }
             else{
-                Table reservedTable = new Table(tableId, numSeatsInTable, maxEndTime, Time.valueOf(startTime));
+                Table reservedTable = new Table(tableId, maxEndTime, Time.valueOf(startTime));
                 try {
                     reservedTable.addReservation(reservation);
                 } catch (Exception e) {
@@ -135,7 +135,7 @@ public class Floor extends AppCompatActivity {
 
 
     public Table addUnreservedTable(String tableId, int indexForStringName){
-        Table table = new Table(tableId, 8, maxEndTime, Time.valueOf(startTime), "T"+indexForStringName);
+        Table table = new Table(tableId, maxEndTime, Time.valueOf(startTime), "T"+indexForStringName);
         floorState.put(tableId, table);
         return table;
     }
