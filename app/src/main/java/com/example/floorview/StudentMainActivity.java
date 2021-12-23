@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,18 +13,16 @@ import androidx.appcompat.app.AppCompatActivity;
  * - Book a chair button
  * - Book a classroom button
  */
-public class StudentMainActivity extends AppCompatActivity
-{
+public class StudentMainActivity extends AppCompatActivity {
     ProgressDialog progress;
     String userId;
     TextView tv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        userId = bundle.getString("id");
+        userId = bundle.getString("userId");
         setContentView(R.layout.student_main_activity);
         // Toast.makeText(StudentMainActivity.this, "Your Text", Toast.LENGTH_LONG).show();
         tv = (TextView)findViewById(R.id.button6);
@@ -62,11 +59,10 @@ public class StudentMainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void BookClassroomButton(View view)
-    {
-        //Toast.makeText(StudentMainActivity.this, "You clicked on BookClassroomButton button", Toast.LENGTH_LONG).show();
-//        Intent intent = new Intent(StudentMainActivity.this, StudentBookClassActivity.class);
-//        intent.putExtra("id",userId);
-//        startActivity(intent);
+    public void BookClassButton(View view) {
+        //Toast.makeText(MainActivity.this, "You clicked on BookChairButton button", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(StudentMainActivity.this, StudentBookClassActivity.class);
+        intent.putExtra("id",userId);
+        startActivity(intent);
     }
 }
