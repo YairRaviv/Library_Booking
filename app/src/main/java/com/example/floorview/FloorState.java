@@ -71,23 +71,23 @@ public class FloorState {
                 +"' AND ("+queryStringStartBeforeEndDuring+" OR " +queryStringStartAfter+" OR "+queryStringStartAt+")";
         ResultSet result = dbConnector.executeQuery(queryString);
         if(result!=null){
-            try {
-                while(result.next()) {
-                    int reservationId = result.getInt(1);
-                    char floor = result.getString(2).charAt(0);
-                    String id = result.getString(3);
-                    Date reservationDate = result.getDate(4);
-                    Time startTime = result.getTime(5);
-                    Time endTime = result.getTime(6);
-                    System.out.println("reservationId: "+result.getInt(1)+" | floor: "+ result.getString(2)+
-                            " | id: "+result.getString(3)+" | reservationDate: "+result.getDate(4) +
-                            " | startTime: "+result.getTime(5)+" | endTime: "+result.getTime(6));
-                    Reservation reservation = new Reservation(reservationId, floor, id, reservationDate, startTime, endTime , reservedObjectType);
-                    reservations.add(reservation);
+                try {
+                    while(result.next()) {
+                        int reservationId = result.getInt(1);
+                        char floor = result.getString(2).charAt(0);
+                        String id = result.getString(3);
+                        Date reservationDate = result.getDate(4);
+                        Time startTime = result.getTime(5);
+                        Time endTime = result.getTime(6);
+                        System.out.println("reservationId: "+result.getInt(1)+" | floor: "+ result.getString(2)+
+                                " | id: "+result.getString(3)+" | reservationDate: "+result.getDate(4) +
+                                " | startTime: "+result.getTime(5)+" | endTime: "+result.getTime(6));
+                        Reservation reservation = new Reservation(reservationId, floor, id, reservationDate, startTime, endTime , reservedObjectType);
+                        reservations.add(reservation);
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
         return reservations;
     }

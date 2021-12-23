@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FloorActivity">
+    tools:context=".FloorActivityTable">
     >
 
     <HorizontalScrollView
@@ -99,13 +99,13 @@
                 android:id="@+id/floorA_row_middle"
                 android:layout_width="720dp"
                 android:layout_height="100dp"
+                android:layout_marginTop="52dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"
-                app:layout_constraintVertical_bias="0.538">
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
 
 
                 <Button
@@ -114,12 +114,12 @@
                     android:layout_height="fill_parent"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/table_available"
+                    android:onClick="tableClick"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    android:onClick="tableClick"/>
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/floorA_table19"
@@ -127,12 +127,12 @@
                     android:layout_height="fill_parent"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/table_available"
+                    android:onClick="tableClick"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    android:onClick="tableClick"/>
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/floorA_table20"
@@ -140,12 +140,12 @@
                     android:layout_height="fill_parent"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/table_available"
+                    android:onClick="tableClick"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    android:onClick="tableClick"/>
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/floorA_table21"
@@ -153,12 +153,12 @@
                     android:layout_height="fill_parent"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/table_available"
+                    android:onClick="tableClick"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    android:onClick="tableClick"/>
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/floorA_table22"
@@ -166,12 +166,12 @@
                     android:layout_height="fill_parent"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/table_available"
+                    android:onClick="tableClick"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    android:onClick="tableClick"/>
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/floorA_table23"
@@ -179,12 +179,12 @@
                     android:layout_height="fill_parent"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/table_available"
+                    android:onClick="tableClick"
                     app:backgroundTint="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    android:onClick="tableClick"/>
+                    app:layout_constraintVertical_bias="1.0" />
             </LinearLayout>
 
             <LinearLayout
