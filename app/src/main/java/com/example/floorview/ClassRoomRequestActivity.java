@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,12 +17,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 
-public class ClassRoomRequest extends AppCompatActivity
+public class ClassRoomRequestActivity extends AppCompatActivity
 {
     DBConnector dbConnector;
     String userId;
@@ -59,13 +55,13 @@ public class ClassRoomRequest extends AppCompatActivity
 
         RealTimeDB = FirebaseDatabase.getInstance().getReference();
         Spinner facultiesSpinner = (Spinner)findViewById(R.id.faculties_spinner);
-        ArrayAdapter<String> facultiesAdapter = new ArrayAdapter<String>(ClassRoomRequest.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.faculties));
+        ArrayAdapter<String> facultiesAdapter = new ArrayAdapter<String>(ClassRoomRequestActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.faculties));
         facultiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //mySpinner.setPrompt("Select Faculty");
         facultiesSpinner.setAdapter(facultiesAdapter);
 
         Spinner ReasonsSpinner = (Spinner)findViewById(R.id.faculties_spinner);
-        ArrayAdapter<String> ReasonsAdapter = new ArrayAdapter<String>(ClassRoomRequest.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.reasons));
+        ArrayAdapter<String> ReasonsAdapter = new ArrayAdapter<String>(ClassRoomRequestActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.reasons));
         ReasonsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //mySpinner.setPrompt("Select Faculty");
         ReasonsSpinner.setAdapter(ReasonsAdapter);
@@ -91,7 +87,7 @@ public class ClassRoomRequest extends AppCompatActivity
 
         Cancel.setOnClickListener(view ->
         {
-            Intent intent = new Intent(ClassRoomRequest.this , StudentMainActivity.class);
+            Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
             startActivity(intent);
         });
         Send.setOnClickListener(view ->
@@ -147,7 +143,7 @@ public class ClassRoomRequest extends AppCompatActivity
             String InsertRequest_Query = "INSERT INTO ClassRequests (`ReservationID`, `StudentID`, `NumOfStudents`, `Faculty`, `Department`, `Reason` , `PhoneNumber`) " +
                     "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
             dbConnector.executeUpdate(InsertRequest_Query);
-            Intent intent = new Intent(ClassRoomRequest.this , StudentMainActivity.class);
+            Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
             startActivity(intent);
         });
     }

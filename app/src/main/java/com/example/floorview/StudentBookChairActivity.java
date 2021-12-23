@@ -15,7 +15,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +23,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
@@ -87,22 +82,23 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
 
     private void initiateReservations() throws SQLException, ParseException {
         System.out.println("in MyReservations()");
-        ListView listview = (ListView) findViewById(R.id.listview);
+        ListView listview = (ListView) findViewById(R.id.RequestsListView);
         reservationsList =  getData();
         // user has no reservations yet
         if (reservationsList.isEmpty()){
-            ListView lv = (ListView)findViewById(R.id.listview);
+            ListView lv = (ListView)findViewById(R.id.RequestsListView);
             emptyText = (TextView)findViewById(R.id.empty);
             emptyText.setText("You Have No Reservations");
             lv.setEmptyView(emptyText);
         }
-        else {
+        else
+            {
             System.out.println("after userReservationsView()");
             //instantiate custom adapter
             MyCustomAdapter myAdapter = new MyCustomAdapter(reservationsList, this);
 
             //handle listview and assign adapter
-            ListView lView = (ListView) findViewById(R.id.listview);
+            ListView lView = (ListView) findViewById(R.id.RequestsListView);
             lView.setAdapter(myAdapter);
         }
     }
@@ -265,7 +261,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void MyReservations(View view) throws SQLException {
         System.out.println("in MyReservations()");
-        ListView listview = (ListView) findViewById(R.id.listview);
+        ListView listview = (ListView) findViewById(R.id.RequestsListView);
         System.out.println("after userReservationsView()");
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reservationsList.stream().map(reservation -> reservation.toString()).collect(Collectors.toList())){

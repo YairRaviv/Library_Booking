@@ -25,15 +25,15 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="     Book a chair     "
         android:backgroundTint="#145DA0"
+        android:onClick="BookChairButton"
+        android:text="     Book a chair     "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.537"
-        android:onClick="BookChairButton"/>
+        app:layout_constraintVertical_bias="0.537" />
 
     <Button
         android:id="@+id/button6"

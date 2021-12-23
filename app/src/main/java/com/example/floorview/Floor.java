@@ -145,7 +145,8 @@ public class Floor extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void addReservationToDB(String clickedTableId, Time selectedEndTime, String userId) throws Exception {
+    public void addReservationToDB(String clickedTableId, Time selectedEndTime, String userId) throws Exception
+    {
         ArrayList<Reservation> newReservationsState = getUpdatedReservationsFromDB();
         Collections.sort(newReservationsState, Comparator.comparing(Reservation::getId));
         ArrayList<Reservation> currentReservationsStateCopy = new ArrayList<>();

@@ -7,8 +7,8 @@
         android:id="@+id/list_item_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:paddingLeft="8dp"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -17,22 +17,22 @@
         android:id="@+id/cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#145DA0"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
-        android:text="Cancel"
-        android:onClick="CancelButtonClick"/>
+        android:backgroundTint="#145DA0"
+        android:onClick="CancelButtonClick"
+        android:text="Cancel" />
 
     <Button
         android:id="@+id/arrived_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#145DA0"
-        android:layout_toLeftOf="@id/cancel_btn"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:text="Arrived"
-        android:onClick="ArrivedButtonClick"/>
+        android:layout_toLeftOf="@id/cancel_btn"
+        android:backgroundTint="#145DA0"
+        android:onClick="ArrivedButtonClick"
+        android:text="Arrived" />
 
 </RelativeLayout>
