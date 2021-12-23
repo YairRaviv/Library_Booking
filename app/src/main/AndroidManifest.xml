@@ -37,6 +37,18 @@
         <activity
             android:name=".StudentBookClassActivity"
             android:exported="false" />
+        <activity
+            android:name=".ChangeCredentialsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CheckReservationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LibrarianMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClassRoomRequestActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
