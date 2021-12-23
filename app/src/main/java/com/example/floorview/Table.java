@@ -1,62 +1,30 @@
 package com.example.floorview;
 
-import android.content.Context;
-import android.widget.Button;
-
-import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
-public class Table {
+public class Table extends ReservableObject {
 
-    public ArrayList<Reservation> tableReservations;
-    public String tableId;
-    public String tableName;
-    public int numSeats;
-    public int numFreeSeats;
-    public Time maxTimeToBook;
-    public Time startTime;
-    public int numReservationsAfterStart;
-    String description;
-    TableStatus status;
+    private final int NUM_SEATS = 8;
+    private int numFreeSeats;
+    private int numReservationsAfterStart;
 
-    public Table(String tableId, int numSeats, Time maxTimeToBook, Time startTime) {
-        tableReservations = new ArrayList<>();
-        this.tableId = tableId;
-        this.numSeats = numSeats;
-        this.numFreeSeats = numSeats;
-        this.numReservationsAfterStart = numSeats;
-        this.status = TableStatus.available;
-        this.maxTimeToBook = maxTimeToBook;
-        this.startTime = startTime;
+    public Table(String id, Time maxTimeToBook, Time startTime) {
+        super(id, maxTimeToBook, startTime);
+        this.numFreeSeats = NUM_SEATS;
+        this.numReservationsAfterStart = NUM_SEATS;
         updateDescription();
     }
 
-    public Table(String tableId, int numSeats, Time maxTimeToBook, Time startTime, String tableName) {
-        tableReservations = new ArrayList<>();
-        this.tableId = tableId;
-        this.numSeats = numSeats;
-        this.numFreeSeats = numSeats;
-        this.status = TableStatus.available;
-        this.maxTimeToBook = maxTimeToBook;
-        this.tableName = tableName;
-        this.numReservationsAfterStart = numSeats;
-        this.startTime = startTime;
+    public Table(String id, Time maxTimeToBook, Time startTime, String name) {
+        super(id, maxTimeToBook, startTime, name);
+        this.numFreeSeats = NUM_SEATS;
+        this.numReservationsAfterStart = NUM_SEATS;
         updateDescription();
     }
 
 
-    private void updateDescription() {
-        if(numFreeSeats == 0){
-            status = TableStatus.notAvailable;
-            description = "Table ID: " + tableId + "\nFully Booked";
-        }
-        else{
-            status = TableStatus.available;
-            description = numFreeSeats + " Available Seats Left\nCan Be Booked Till: " + maxTimeToBook.toString();
-        }
-    }
-
+    @Override
     public void addReservation(Reservation reservation) {
         Time resStartTime = reservation.startTime;
         if (resStartTime.compareTo(startTime) > 0) {
@@ -72,19 +40,30 @@ public class Table {
 
     private void addReservationStartAfter(Reservation reservation){
         if(numReservationsAfterStart < numFreeSeats){
-            tableReservations.add(reservation);
+            reservations.add(reservation);
         }
         else{
-            tableReservations.add(reservation);
-            maxTimeToBook = tableReservations.get(0).startTime;
-            for(int i=1; i<tableReservations.size(); i++){
-                Time tableReservationsStartTime = tableReservations.get(i).startTime;
+            reservations.add(reservation);
+            maxTimeToBook = reservations.get(0).startTime;
+            for(int i = 1; i< reservations.size(); i++){
+                Time tableReservationsStartTime = reservations.get(i).startTime;
                 if(tableReservationsStartTime.compareTo(maxTimeToBook)>0){
                     maxTimeToBook = tableReservationsStartTime;
                 }
             }
         }
 
+    }
+
+    private void updateDescription() {
+        if(numFreeSeats == 0){
+            status = ReservableObjectStatus.notAvailable;
+            description = "Table ID: " + id + "\nFully Booked";
+        }
+        else{
+            status = ReservableObjectStatus.available;
+            description = numFreeSeats + " Available Seats Left\nCan Be Booked Till: " + maxTimeToBook.toString();
+        }
     }
 
 

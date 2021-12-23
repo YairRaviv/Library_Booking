@@ -15,7 +15,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +23,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
@@ -70,7 +65,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(StudentBookChairActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.floors));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setPrompt("Select Floor");
+        mySpinner.setPrompt("Select FloorState");
         mySpinner.setAdapter(myAdapter);
         try {
             initiateReservations();
@@ -181,6 +176,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         showDatePickerDialog();
     }
 
+
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         monthOfYear = monthOfYear+1;
@@ -245,11 +241,11 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
                 while (result.next()) {
                     Map<String, String> dtname = new HashMap<String, String>();
                     Reservation currReservation = new Reservation(result.getInt("reservationId"),
-                            result.getString("floor").charAt(0),
+                            result.getString("floorState").charAt(0),
                             result.getString("tableId"),
                             result.getDate("reservationDate"),
                             result.getTime("startTime"),
-                            result.getTime("endTime"));
+                            result.getTime("endTime"), ReservedObjectType.table);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -284,7 +280,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
     public void SelectTableButton(View view) throws SQLException, ParseException {
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         floor = String.valueOf(mySpinner.getSelectedItem());
-        Intent intent = new Intent(StudentBookChairActivity.this, FloorActivity.class);
+        Intent intent = new Intent(StudentBookChairActivity.this, FloorActivityTable.class);
         char level = floor.charAt(0);
         String [] dateStringArr = dateText.getText().toString().split("/");
         String dateString = dateStringArr[2]+"-"+dateStringArr[0]+"-"+dateStringArr[1];

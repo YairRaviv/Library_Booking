@@ -1,7 +1,6 @@
 package com.example.floorview;
 
 
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -20,8 +19,8 @@ import androidx.core.content.ContextCompat;
 import java.sql.Time;
 import java.util.HashMap;
 
-public class FloorActivity extends AppCompatActivity {
-    Floor floor;
+public class FloorActivityTable extends AppCompatActivity {
+    FloorState floorState;
     char levelChar;
     String startTime;
     String date;
@@ -30,7 +29,7 @@ public class FloorActivity extends AppCompatActivity {
     Time selectedEndTime;
     TextView timeText;
     String userId;
-
+    ReservedObjectType reservedObjectType;
 
 
     @Override
@@ -41,7 +40,8 @@ public class FloorActivity extends AppCompatActivity {
         date = bundle.getString("date");
         userId = bundle.getString("userId");
         startTime = bundle.getString("startTime");
-        floor = new Floor(levelChar, date, startTime);
+        reservedObjectType = ReservedObjectType.table;
+        floorState = new FloorState(levelChar, date, startTime, reservedObjectType);
         setContentViewIdByLevel();
         setContentView(contentViewId);
     }
@@ -50,64 +50,47 @@ public class FloorActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initiateViewDataOnStart();
-//        showSelectionInstructions();
     }
-
-//    private void showSelectionInstructions() {
-//        new Thread()
-//        {
-//            public void run() {
-//                TextView instructionsView = findViewById(R.id.instructions);
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                instructionsView.setVisibility(View.INVISIBLE);
-//            }
-//        }.start();
-//
-//    }
 
 
     private void setContentViewIdByLevel() {
         switch (levelChar){
             case 'A':
-                contentViewId=R.layout.floor_a_layout;
+                contentViewId=R.layout.floor_a_layout_table;
                 break;
             case 'B':
-                contentViewId=R.layout.floor_b_layout;
+                contentViewId=R.layout.floor_b_layout_table;
                 break;
             case 'C':
-                contentViewId=R.layout.floor_c_layout;
+                contentViewId=R.layout.floor_c_layout_table;
                 break;
             default:
-                contentViewId=R.layout.floor_d_layout;
+                contentViewId=R.layout.floor_d_layout_table;
                 break;
         }
     }
 
     private void initiateViewDataOnStart(){
-        HashMap<String, Table> floorTablesState = floor.getFloorState();
-        for(int i=1; i<=floor.numTablesInFloor; i++){
-            String tableId = "floor"+floor.floorLevel+"_table"+i;
+        HashMap<String, ReservableObject> floorTablesState = floorState.getFloorState();
+        for(int i = 1; i<= floorState.getNumRelevantObjectInFloor(); i++){
+            String tableId = "floorState"+ floorState.floor +"_table"+i;
             int tableResourceId = getResources().getIdentifier(tableId, "id", getPackageName());
             Button tableUiObject = (Button) findViewById(tableResourceId);
             if(tableUiObject != null) {
-                Table table = floorTablesState.get(tableId);
+                Table table = (Table) floorTablesState.get(tableId);
                 if(table != null) {
-                    if (table.status == TableStatus.available) {
+                    if (table.status == ReservableObjectStatus.available) {
                         tableUiObject.setBackground(ContextCompat.getDrawable(this.getBaseContext(), R.drawable.table_available));
                     } else {
                         tableUiObject.setBackground(ContextCompat.getDrawable(this.getBaseContext(), R.drawable.table_taken));
                     }
-                    table.tableName = "T" + i;
-                    tableUiObject.setText(table.tableName);
+                    table.name = "T" + i;
+                    tableUiObject.setText(table.name);
                 }
                 else{
                     tableUiObject.setBackground(ContextCompat.getDrawable(this.getBaseContext(), R.drawable.table_available));
-                    Table newTable = floor.addUnreservedTable(tableId, i);
-                    tableUiObject.setText(newTable.tableName);
+                    Table newTable = (Table) floorState.addUnreservedObject(tableId, i);
+                    tableUiObject.setText(newTable.name);
                 }
             }
         }
@@ -122,13 +105,13 @@ public class FloorActivity extends AppCompatActivity {
                 style,
                 new TimePickerDialog.OnTimeSetListener() {
                     public void onTimeSet(TimePicker view, int hour, int minute) {
-                        Table clickedTable = floor.getUpdatedTableState(clickedTableId);
+                        Table clickedTable = (Table) floorState.getUpdatedObjectState(clickedTableId);
                         Time selectedTime = Time.valueOf((hour>=10? hour: "0"+hour)+":"+(minute>=10? minute: "0"+minute)+":00");
                         if(selectedTime.after(clickedTable.maxTimeToBook)){
-                            Toast.makeText(FloorActivity.this, "Can't select time after "+clickedTable.maxTimeToBook, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FloorActivityTable.this, "Can't select time after "+clickedTable.maxTimeToBook, Toast.LENGTH_SHORT).show();
                         }
                         else if(selectedTime.before(Time.valueOf(startTime))){
-                            Toast.makeText(FloorActivity.this, "Can't select time before "+startTime, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FloorActivityTable.this, "Can't select time before "+startTime, Toast.LENGTH_SHORT).show();
                         }
                         else{
                             selectedEndTime = selectedTime;
@@ -154,9 +137,9 @@ public class FloorActivity extends AppCompatActivity {
         //TODO: Here we should check if the table is still available in the DB
         int startIndexOfId = clickedTableFullId.lastIndexOf('/')+1;
         clickedTableId = clickedTableFullId.substring(startIndexOfId);
-        Table clickedTable = floor.floorState.get(clickedTableId);
+        Table clickedTable = (Table) floorState.floorState.get(clickedTableId);
         System.out.println("CLICK");
-        if(clickedTable.status == TableStatus.available){
+        if(clickedTable.status == ReservableObjectStatus.available){
             showTableSelectionPopup(clickedTable);
         }
         else{
@@ -171,7 +154,7 @@ public class FloorActivity extends AppCompatActivity {
         Button closeSelectionPopupBtn = selectionPopupView.findViewById(R.id.closeSelectionPopupBtn);
         TextView tableName = selectionPopupView.findViewById(R.id.tableName);
         TextView tableDescription = selectionPopupView.findViewById(R.id.tableDescription);
-        tableName.setText("Table: "+clickedTable.tableName);
+        tableName.setText("Table: "+clickedTable.name);
         tableDescription.setText(clickedTable.description);
         dialogBuilder.setView(selectionPopupView);
         AlertDialog selectionPopupDialog = dialogBuilder.create();
@@ -189,19 +172,19 @@ public class FloorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(selectedEndTime == null){
-                    Toast.makeText(FloorActivity.this, "Missing valid end time selection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FloorActivityTable.this, "Missing valid end time selection", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     try {
-                        floor.addReservationToDB(clickedTableId, selectedEndTime, userId);
-                        Intent intent = new Intent(FloorActivity.this, StudentBookChairActivity.class);
+                        floorState.addReservationToDB(clickedTableId, selectedEndTime, userId);
+                        Intent intent = new Intent(FloorActivityTable.this, StudentBookChairActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("id", userId);
                         intent.putExtras(bundle);
                         startActivity(intent);
                     } catch (Exception e) {
                         initiateViewDataOnStart();
-                        Toast.makeText(FloorActivity.this, "Selected table state has changed, please select again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FloorActivityTable.this, "Selected table state has changed, please select again", Toast.LENGTH_LONG).show();
                     }
                     finally {
                         selectionPopupDialog.dismiss();

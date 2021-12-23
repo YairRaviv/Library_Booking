@@ -55,11 +55,11 @@
             app:layout_constraintTop_toTopOf="@+id/setTime" />
 
         <TextView
-            android:id="@+id/tableName"
+            android:id="@+id/classroomName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Table Name"
+            android:text="Classroom Name"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,18 +68,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tableDescription"
+            android:id="@+id/classroomDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="Table Description"
+            android:text="Classroom Description"
             android:textSize="18dp"
             app:layout_constraintBottom_toTopOf="@+id/setTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.527"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableName"
+            app:layout_constraintTop_toBottomOf="@+id/classroomName"
             app:layout_constraintVertical_bias="0.031" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

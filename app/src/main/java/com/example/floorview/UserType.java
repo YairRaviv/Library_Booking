@@ -1,2 +1,6 @@
-package com.example.floorview;public enum UserType {
+package com.example.floorview;
+
+public enum UserType {
+    student,
+    librarian
 }

@@ -1,6 +1,6 @@
 package com.example.floorview;
 
-public enum TableStatus {
+public enum ReservableObjectStatus {
     notAvailable,
     available,
 }
