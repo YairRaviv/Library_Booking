@@ -49,6 +49,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.my_custom_list_layout, null);
         }
+        ReservedObjectType type = list.get(0).reservedObjectType;
 
         //Handle TextView and display string from the list
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
@@ -75,7 +76,13 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                 int space_index = text.indexOf(' ');
                 int linebreak_index = text.indexOf("\n");
                 String reservationId = text.substring(space_index+1,linebreak_index);
-                String queryString = "DELETE from Reservations WHERE reservationId = "+ reservationId;
+                String queryString = "";
+                if (type == ReservedObjectType.table) {
+                    queryString = "DELETE from Reservations WHERE reservationId = " + reservationId;
+                }
+                else{
+                    queryString = "DELETE from ClassReservations WHERE reservationId = " + reservationId;
+                }
                 dbConnector.executeUpdate(queryString);
                 progress.dismiss();
                 list.remove(position); //or some other task
@@ -103,7 +110,13 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                 int space_index = text.indexOf(' ');
                 int linebreak_index = text.indexOf("\n");
                 String reservationId = text.substring(space_index+1,linebreak_index);
-                String queryString = "UPDATE Reservations SET Arrived = 'Yes' WHERE reservationId = "+ reservationId;
+                String queryString = "";
+                if (type == ReservedObjectType.table) {
+                    queryString = "UPDATE Reservations SET Arrived = 'Yes' WHERE reservationId = " + reservationId;
+                }
+                else{
+                    queryString = "UPDATE ClassReservations SET Arrived = 'Yes' WHERE reservationId = " + reservationId;
+                }
                 dbConnector.executeUpdate(queryString);
                 progress.dismiss();
             }

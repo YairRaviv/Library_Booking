@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -294,4 +297,40 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         startActivity(intent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.student_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
+        switch (item.getItemId()) {
+            case R.id.librarian_menu_book_class:
+                //Toast.makeText(this, "Book Chair clicked", Toast.LENGTH_LONG).show();
+                intent = new Intent(this, LibrarianBookClassActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.librarian_menu_requests:
+                intent = new Intent(this, CheckReservationsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.librarian_menu_change_details:
+                intent = new Intent(this, ChangeCredentialsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.librarian_menu_logout:
+                intent = new Intent(this, Login_Registration_Screen.class);
+                startActivity(intent);
+                return true;
+        }
+        return true;
+    }
 }

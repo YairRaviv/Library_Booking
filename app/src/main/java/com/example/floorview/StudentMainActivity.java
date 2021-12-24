@@ -3,7 +3,11 @@ package com.example.floorview;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * - Book a chair button
  * - Book a classroom button
  */
-public class StudentMainActivity extends AppCompatActivity {
+public class StudentMainActivity extends AppCompatActivity{
     ProgressDialog progress;
     String userId;
     TextView tv;
@@ -25,7 +29,7 @@ public class StudentMainActivity extends AppCompatActivity {
         userId = bundle.getString("userId");
         setContentView(R.layout.student_main_activity);
         // Toast.makeText(StudentMainActivity.this, "Your Text", Toast.LENGTH_LONG).show();
-        tv = (TextView)findViewById(R.id.button6);
+        tv = (TextView)findViewById(R.id.book_class_btn);
     }
 
     @Override
@@ -65,4 +69,44 @@ public class StudentMainActivity extends AppCompatActivity {
         intent.putExtra("userId",userId);
         startActivity(intent);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.student_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
+        switch (item.getItemId()) {
+            case R.id.student_menu_book_chair:
+                //Toast.makeText(this, "Book Chair clicked", Toast.LENGTH_LONG).show();
+                intent = new Intent(this, StudentBookChairActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.student_menu_book_class:
+                intent = new Intent(this, StudentBookClassActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.student_menu_change_details:
+                intent = new Intent(this, ChangeCredentialsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.student_menu_logout:
+                intent = new Intent(this, Login_Registration_Screen.class);
+                startActivity(intent);
+                return true;
+        }
+        return true;
+    }
+
+
 }
