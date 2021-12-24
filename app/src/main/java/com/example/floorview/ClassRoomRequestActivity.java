@@ -60,7 +60,7 @@ public class ClassRoomRequestActivity extends AppCompatActivity
         //mySpinner.setPrompt("Select Faculty");
         facultiesSpinner.setAdapter(facultiesAdapter);
 
-        Spinner ReasonsSpinner = (Spinner)findViewById(R.id.faculties_spinner);
+        Spinner ReasonsSpinner = (Spinner)findViewById(R.id.reasons_spinner);
         ArrayAdapter<String> ReasonsAdapter = new ArrayAdapter<String>(ClassRoomRequestActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.reasons));
         ReasonsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //mySpinner.setPrompt("Select Faculty");
@@ -85,6 +85,8 @@ public class ClassRoomRequestActivity extends AppCompatActivity
         classroomId = bundle.getString("classroomId");
         floor = bundle.getChar("floor");
 
+
+
         Cancel.setOnClickListener(view ->
         {
             Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
@@ -95,9 +97,13 @@ public class ClassRoomRequestActivity extends AppCompatActivity
             // create the reservation and upload it to DB (to "Class Reservations" Table)
             // Floor.UploadClassReservationToDB(floor,classroomId,reservationDate,startTime,endTime,userId,"Didnt Arrived Yet" , "Pending");
 
+            String UploadQuery = "INSERT INTO ClassReservations (`Floor`, `ClassRoomID`, `ReservationDate`, `StartTime`, `EndTime` , `UserID` , `Arrived` , `Status`) " +
+                    "VALUES ('"+floor+"', '"+classroomId+"', '"+reservationDate+"', '"+startTime+"', '"+endTime+"' , '"+userId+"' , '"+"No"+"' , '"+"Pending"+"' );";
+            dbConnector.executeUpdate(UploadQuery);
+
 
             //create the request and upload it to DB
-            String RID_Query = "SELECT ReservationID from ClassReservations WHERE ClassRoomId is " +classroomId+ " AND ReservationDate is " +reservationDate+" AND UserID is "+ userId;
+            String RID_Query = "SELECT ReservationID from ClassReservations WHERE ClassRoomID = '" +classroomId+ "' AND ReservationDate = '" +reservationDate+"' AND UserID = '"+ userId+"'";
             ResultSet result = dbConnector.executeQuery(RID_Query);
             if(result!=null)
             {
@@ -105,6 +111,7 @@ public class ClassRoomRequestActivity extends AppCompatActivity
                 {
                     while(result.next())
                     {
+                        System.out.println("query result is : " + result);
                         reservationId = result.getInt("ReservationID");
                     }
                 }
@@ -113,7 +120,6 @@ public class ClassRoomRequestActivity extends AppCompatActivity
                     throwables.printStackTrace();
                 }
             }
-
             //extract student id (the real one) from FireBase
             final String[] StudentID = new String[1];
             RealTimeDB.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>()
@@ -144,9 +150,7 @@ public class ClassRoomRequestActivity extends AppCompatActivity
                     "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
             dbConnector.executeUpdate(InsertRequest_Query);
             Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
-            Bundle bundle2 = new Bundle();
-            bundle2.putString("userId", userId);
-            intent.putExtras(bundle2);
+            intent.putExtra("userId",userId);
             startActivity(intent);
         });
     }

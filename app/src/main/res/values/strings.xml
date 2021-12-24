@@ -25,11 +25,12 @@
         <item>Humanities and Social Science</item>
     </string-array>
     <string-array name="reasons">
-        <item>Other..</item>
+        <item>Select Reason..</item>
         <item>Lecture</item>
         <item>Practice</item>
         <item>Marathon</item>
         <item>Test</item>
         <item>Social Activity</item>
+        <item>Other..</item>
     </string-array>
 </resources>

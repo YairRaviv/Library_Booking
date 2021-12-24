@@ -41,13 +41,13 @@ public class ClassRequest implements Comparable<ClassRequest>
     }
     public String toString()
     {
-//        String table_exact_number = tableId.substring(12,tableId.length());
-//        return "Reservation "+this.reservationId+"\n"+
-//                "Floor "+this.floor+"\n"+
-//                "Table "+table_exact_number+"\n"+
-//                "Date "+this.reservationDate+"\n"+
-//                "Start "+this.startTime+"\n"+
-//                "End "+this.endTime;
-        return "";
+        //String table_exact_number = tableId.substring(12,tableId.length());
+        return "Request "+this.reservationId+"\n"+
+                "Faculty "+this.Faculty+"\n"+
+                "Department "+Department+"\n"+
+                "StudentID "+this.Student_Id+"\n"+
+                "Reason "+this.Reason+"\n"+
+                "NumOfStudents "+this.NumOfStudents+"\n"+
+                "PhoneNumber "+this.PhoneNumber;
     }
 }

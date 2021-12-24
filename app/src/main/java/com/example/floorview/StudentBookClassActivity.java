@@ -313,7 +313,6 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         startActivity(intent);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -350,5 +349,4 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         }
         return true;
     }
-
 }
