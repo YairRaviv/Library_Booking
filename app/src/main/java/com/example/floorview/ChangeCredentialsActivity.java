@@ -150,7 +150,7 @@ public class ChangeCredentialsActivity extends AppCompatActivity
                                 }
                                 else
                                 {
-                                    Intent intent = new Intent(ChangeCredentialsActivity.this, LibrarianMainActivity.class);
+                                    Intent intent = new Intent(ChangeCredentialsActivity.this, StudentMainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("id",AuthDB.getCurrentUser().getUid());
                                     startActivity(intent);

@@ -2,6 +2,8 @@ package com.example.floorview;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.List;
 
@@ -44,15 +47,17 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent)
+    {
         View view = convertView;
-        if (view == null) {
+        if (view == null)
+        {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.my_custom_list_layout, null);
+            view = inflater.inflate(R.layout.requests_layout, null);
         }
 
         //Handle TextView and display string from the list
-        TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
+        TextView listItemText = (TextView)view.findViewById(R.id.list_item_string2);
         listItemText.setText(list.get(position).toString());
 
         //Handle buttons and add onClickListeners
@@ -74,7 +79,7 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
                 progress.show();
                 progress.setContentView(R.layout.progress_dialog);
                 RelativeLayout rl = (RelativeLayout)v.getParent();
-                TextView tv = (TextView)rl.findViewById(R.id.list_item_string);
+                TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
                 String text = tv.getText().toString();
                 int space_index = text.indexOf(' ');
                 int linebreak_index = text.indexOf("\n");
@@ -106,7 +111,7 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
                 progress.show();
                 progress.setContentView(R.layout.progress_dialog);
                 RelativeLayout rl = (RelativeLayout)v.getParent();
-                TextView tv = (TextView)rl.findViewById(R.id.list_item_string);
+                TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
                 String text = tv.getText().toString();
                 int space_index = text.indexOf(' ');
                 int linebreak_index = text.indexOf("\n");
@@ -115,6 +120,7 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
                 dbConnector.executeUpdate(queryString);
                 String queryString2 = "DELETE from ClassRequests WHERE ReservationID = "+ reservationId;
                 dbConnector.executeUpdate(queryString2);
+                list.remove(position);
                 progress.dismiss();
             }
         });
@@ -122,21 +128,20 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
         {
             @Override
             public void onClick(View v) {
-                CallStudent.setEnabled(false);
-                notifyDataSetChanged();
+                //CallStudent.setEnabled(false);
+                //notifyDataSetChanged();
                 progress = new ProgressDialog(v.getContext());
                 progress.show();
                 progress.setContentView(R.layout.progress_dialog);
                 RelativeLayout rl = (RelativeLayout)v.getParent();
-                TextView tv = (TextView)rl.findViewById(R.id.list_item_string);
+                TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
                 String text = tv.getText().toString();
-                int space_index = text.indexOf(' ');
-                int linebreak_index = text.indexOf("\n");
-                String reservationId = text.substring(space_index+1,linebreak_index);
-                String queryString = "UPDATE ClassReservations SET Status = 'Approved' WHERE ReservationID = "+ reservationId;
-                dbConnector.executeUpdate(queryString);
-                String queryString2 = "DELETE from ClassRequests WHERE ReservationID = "+ reservationId;
-                dbConnector.executeUpdate(queryString2);
+                int end = text.length();
+                int start = text.length()-10;
+                String PhoneNumber = text.substring(start,end);
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+PhoneNumber));
+                context.startActivity(callIntent);
                 progress.dismiss();
             }
         });
