@@ -91,7 +91,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/floorA_classroom2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.47"
-                android:onClick="classRoomClick"/>
+                android:onClick="classroomClick"/>
 
             <Button
                 android:id="@+id/floorA_classroom2"
@@ -103,7 +103,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.47"
-                android:onClick="classRoomClick"/>
+                android:onClick="classroomClick"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
 

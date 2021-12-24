@@ -6,15 +6,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +52,8 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
     DatePickerDialog datePickerDialog;
     int selected_date;
     List<Reservation> reservationsList;
-
+    Button selectClassBtn;
+    Button selectTimeBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +61,10 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         Bundle bundle = getIntent().getExtras();
         userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
-//        try {
-//            userReservationsView();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-
+        selectClassBtn = (Button) StudentBookClassActivity.this.findViewById(R.id.btnSelectClass);
+        selectTimeBtn = (Button) StudentBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
+        selectClassBtn.setEnabled(false);
+        selectTimeBtn.setEnabled(false);
         // Spinner
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(StudentBookClassActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.floors));
@@ -183,14 +187,8 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         Date d = new Date(year,monthOfYear,dayOfMonth);
         Calendar c = Calendar.getInstance();
         c.setTime(d);
-//        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-//        if (dayOfWeek == 1){
-//            dateText.setText(date);MyCustomAdapter
-//        }
         dateText.setText(date);
-//        else{
-//
-//        }
+        selectTimeBtn.setEnabled(true);
     }
 
     private void showTimePickerDialog(){
@@ -225,12 +223,33 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         int year = datePickerDialog.getSelectedDay().getYear();
         int hour = hourOfDay;
         int min = minute;
+
         String time = String.format(Locale.getDefault(), "%02d:%02d", hour, min);
-        timeText.setText(time);
+        Calendar rightNow = Calendar.getInstance();
+        int rightNow_day = rightNow.get(Calendar.DAY_OF_MONTH);
+        int rightNow_month = rightNow.get(Calendar.MONTH)+1;
+        int rightNow_hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int rightNow_minute = rightNow.get(Calendar.MINUTE);
+        String [] selectedDateStringArr = dateText.getText().toString().split("/");
+        String selectedDateString = selectedDateStringArr[2]+"-"+selectedDateStringArr[0]+"-"+selectedDateStringArr[1];
+        int selected_month = Integer.parseInt(selectedDateStringArr[0]);
+        int selected_day = Integer.parseInt(selectedDateStringArr[1]);
+        if (0 <= hourOfDay && hourOfDay <= 7){
+            Toast.makeText(StudentBookClassActivity.this, "Can't select time after 00:00 and before 07:00", Toast.LENGTH_SHORT).show();
+        }
+        else if (rightNow_month == selected_month && rightNow_day == selected_day && rightNow_hour < hour+1){
+            Toast.makeText(StudentBookClassActivity.this, "Can't select passed time", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            timeText.setText(time);
+        }
+        if (dateText.getText().toString() != null && timeText.getText().toString() != null){
+            selectClassBtn.setEnabled(true);
+        }
     }
 
     public List<Reservation> getData() throws SQLException {
-        String queryString = "SELECT * FROM Reservations WHERE userId = '" + userId + "'";
+        String queryString = "SELECT * FROM ClassReservations WHERE userId = '" + userId + "'";
         ResultSet result = dbConnector.executeQuery(queryString);
         List<Reservation> userReservations = new ArrayList<>();
         String reservationId = "";
@@ -244,7 +263,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
                             result.getString("tableId"),
                             result.getDate("reservationDate"),
                             result.getTime("startTime"),
-                            result.getTime("endTime"));
+                            result.getTime("endTime"),ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -279,7 +298,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
     public void SelectClassButton(View view) throws SQLException, ParseException {
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         floor = String.valueOf(mySpinner.getSelectedItem());
-        Intent intent = new Intent(StudentBookClassActivity.this, FloorActivity.class);
+        Intent intent = new Intent(StudentBookClassActivity.this, FloorActivityClassroom.class);
         char level = floor.charAt(0);
         String [] dateStringArr = dateText.getText().toString().split("/");
         String dateString = dateStringArr[2]+"-"+dateStringArr[0]+"-"+dateStringArr[1];
@@ -289,8 +308,47 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         bundle.putChar("level", level);
         bundle.putString("date",dateString);
         bundle.putString("startTime", timeString);
+        bundle.putString("userType","student");
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.student_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
+        switch (item.getItemId()) {
+            case R.id.student_menu_book_chair:
+                //Toast.makeText(this, "Book Chair clicked", Toast.LENGTH_LONG).show();
+                intent = new Intent(this, StudentBookChairActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.student_menu_book_class:
+                intent = new Intent(this, StudentBookClassActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.student_menu_change_details:
+                intent = new Intent(this, ChangeCredentialsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.student_menu_logout:
+                intent = new Intent(this, Login_Registration_Screen.class);
+                startActivity(intent);
+                return true;
+        }
+        return true;
     }
 
 }

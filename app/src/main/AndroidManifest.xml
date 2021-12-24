@@ -49,6 +49,9 @@
         <activity
             android:name=".ClassRoomRequestActivity"
             android:exported="false" />
+        <activity
+            android:name=".FloorActivityClassroom"
+            android:exported="false" />
     </application>
 
 </manifest>
