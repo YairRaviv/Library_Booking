@@ -29,7 +29,7 @@ public class TempClassroomMain extends AppCompatActivity {
         bundle.putString("userId", "1");
         bundle.putChar("level", 'A');
         bundle.putString("date","2021-12-12");
-        bundle.putString("startTime", "14:00:00");
+        bundle.putString("startTime", "11:00:00");
         bundle.putString("userType", "librarian");
         intent.putExtras(bundle);
         startActivity(intent);

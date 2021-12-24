@@ -15,22 +15,22 @@ public class LibrarianMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        userId = bundle.getString("id");
+        userId = bundle.getString("userId");
         setContentView(R.layout.activity_librarian_main);
         OnClickClassBooking = (Button)findViewById(R.id.BookClassroom);
         OnClickCheckReservations = (Button)findViewById(R.id.CheckRequests);
 
         OnClickClassBooking.setOnClickListener(view -> {
 
-//            Intent intent = new Intent(LibrarianMainActivity.this, LibrarianBookClassActivity.class);
-//            intent.putExtra("id",userId);
-//            startActivity(intent);
+            Intent intent = new Intent(LibrarianMainActivity.this, LibrarianBookClassActivity.class);
+            intent.putExtra("userId",userId);
+            startActivity(intent);
 
         });
         OnClickCheckReservations.setOnClickListener(view ->
         {
             Intent intent = new Intent(LibrarianMainActivity.this, CheckReservationsActivity.class);
-            intent.putExtra("id",userId);
+            intent.putExtra("userId",userId);
             startActivity(intent);
         });
     }

@@ -35,7 +35,7 @@ public class CheckReservationsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_reservations);
         Bundle bundle = getIntent().getExtras();
-        userId = bundle.getString("id");
+        userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
     }
 

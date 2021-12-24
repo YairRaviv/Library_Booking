@@ -78,10 +78,10 @@ public class ClassRoomRequestActivity extends AppCompatActivity
 
         //Bundle data
         Bundle bundle = getIntent().getExtras();
-        userId = bundle.getString("id");
+        userId = bundle.getString("userId");
         startTime = bundle.getString("startTime");
         endTime = bundle.getString("endTime");
-        reservationDate = bundle.getString("reservationDate");
+        reservationDate = bundle.getString("date");
         classroomId = bundle.getString("classroomId");
         floor = bundle.getChar("floor");
 
@@ -144,6 +144,9 @@ public class ClassRoomRequestActivity extends AppCompatActivity
                     "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
             dbConnector.executeUpdate(InsertRequest_Query);
             Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
+            Bundle bundle2 = new Bundle();
+            bundle2.putString("userId", userId);
+            intent.putExtras(bundle2);
             startActivity(intent);
         });
     }

@@ -16,8 +16,8 @@ public class Table extends ReservableObject {
         updateDescription();
     }
 
-    public Table(String id, Time maxTimeToBook, Time startTime, String name) {
-        super(id, maxTimeToBook, startTime, name);
+    public Table(String id, Time maxTimeToBook, Time startTime, int nameIndex) {
+        super(id, maxTimeToBook, startTime, "T"+nameIndex);
         this.numFreeSeats = NUM_SEATS;
         this.numReservationsAfterStart = NUM_SEATS;
         updateDescription();
@@ -55,7 +55,8 @@ public class Table extends ReservableObject {
 
     }
 
-    private void updateDescription() {
+    @Override
+    protected void updateDescription() {
         if(numFreeSeats == 0){
             status = ReservableObjectStatus.notAvailable;
             description = "Table ID: " + id + "\nFully Booked";

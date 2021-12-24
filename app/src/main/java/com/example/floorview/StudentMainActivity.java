@@ -55,14 +55,14 @@ public class StudentMainActivity extends AppCompatActivity {
     public void BookChairButton(View view) {
         //Toast.makeText(MainActivity.this, "You clicked on BookChairButton button", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(StudentMainActivity.this, StudentBookChairActivity.class);
-        intent.putExtra("id",userId);
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 
     public void BookClassButton(View view) {
         //Toast.makeText(MainActivity.this, "You clicked on BookChairButton button", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(StudentMainActivity.this, StudentBookClassActivity.class);
-        intent.putExtra("id",userId);
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 }
