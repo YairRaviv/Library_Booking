@@ -35,6 +35,7 @@ public class FloorActivityClassroom extends AppCompatActivity {
     ReservedObjectType reservedObjectType;
     UserType userType;
     ArrayList<Reservation> selectedClassroomsReservations;
+    final LoadingBar loadingBar = new LoadingBar(FloorActivityClassroom.this);
 
 
     @Override
@@ -69,6 +70,13 @@ public class FloorActivityClassroom extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initiateViewDataOnStart();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                loadingBar.dismiss();
+//            }
+//        }, 3000);
     }
 
 
@@ -78,20 +86,32 @@ public class FloorActivityClassroom extends AppCompatActivity {
                 contentViewId=R.layout.floor_a_layout_classroom;
                 break;
             case 'B':
-                contentViewId=R.layout.floor_b_layout_table;
+                contentViewId=R.layout.floor_b_layout_classroom;
                 break;
             case 'C':
-                contentViewId=R.layout.floor_c_layout_table;
+                contentViewId=R.layout.floor_c_layout_classroom;
                 break;
             default:
-                contentViewId=R.layout.floor_d_layout_table;
+                contentViewId=R.layout.floor_d_layout_classroom;
                 break;
         }
     }
 
     private void initiateViewDataOnStart(){
+        System.out.println("**************************************************************");
         selectedClassroomsReservations.clear();
-        HashMap<String, ReservableObject> floorClassroomsState = floorState.getFloorState();
+        AsyncTasksWrapper.ExtractDataFromDbTask extractDataFromDbTask = new AsyncTasksWrapper.ExtractDataFromDbTask(FloorActivityClassroom.this, loadingBar, floorState);
+        extractDataFromDbTask.setListener(new AsyncTasksWrapper.ExtractDataFromDbTask.AsyncTaskListener(){
+            @Override
+            public void onAsyncTaskFinished(HashMap<String, ReservableObject> result) {
+                updateViewComponents(result);
+            }
+        });
+        extractDataFromDbTask.execute();
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    }
+
+    private void updateViewComponents(HashMap<String, ReservableObject>  floorClassroomsState) {
         for(int i = 1; i<= floorState.getNumRelevantObjectInFloor(); i++){
             String classroomId = "floor"+ floorState.floor +"_classroom"+i;
             int classroomResourceId = getResources().getIdentifier(classroomId, "id", getPackageName());
@@ -102,9 +122,9 @@ public class FloorActivityClassroom extends AppCompatActivity {
                     if (classroom.status == ReservableObjectStatus.available) {
                         classroomUiObject.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue)));;
                     } else {
-                        classroomUiObject.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.mdtp_light_gray)));
+                        classroomUiObject.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_gray)));
                     }
-                    classroom.name = "C" + i;
+                    classroom.setName("C" + i);
                     classroomUiObject.setText(classroom.name);
                 }
                 else{
@@ -157,13 +177,27 @@ public class FloorActivityClassroom extends AppCompatActivity {
                 Toast.makeText(this, "No classrooms selected", Toast.LENGTH_SHORT).show();
             }
             else{
-                try {
-                    executeOrders();
-                } catch (Exception e) {
-                    initiateViewDataOnStart();
-                    Toast.makeText(FloorActivityClassroom.this, "Selected "+(selectedClassroomsReservations.size()>1 ? "classrooms" : "classroom")+
-                            "state has changed, please select again", Toast.LENGTH_LONG).show();
-                }
+                AsyncTasksWrapper.ExecuteClassroomsUpdateTask executeClassroomsUpdateTask = new AsyncTasksWrapper.ExecuteClassroomsUpdateTask(FloorActivityClassroom.this, loadingBar, floorState, selectedClassroomsReservations, userId);
+                executeClassroomsUpdateTask.setListener(new AsyncTasksWrapper.ExecuteClassroomsUpdateTask.AsyncTaskListener(){
+                        @Override
+                        public void onAsyncTaskFinished(Boolean result) {
+                            if(!result){
+                                initiateViewDataOnStart();
+                                Toast.makeText(FloorActivityClassroom.this, "Selected "+(selectedClassroomsReservations.size()>1 ? "classrooms" : "classroom")+
+                                        "state has changed, please select again", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            else {
+                                Intent intent = new Intent(FloorActivityClassroom.this, userType == UserType.student ? StudentBookClassActivity.class : LibrarianBookClassActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("userId", userId);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+                executeClassroomsUpdateTask.execute();
+
             }
         }
     }
@@ -181,6 +215,10 @@ public class FloorActivityClassroom extends AppCompatActivity {
             int classroomResourceId = getResources().getIdentifier(clickedClassroomId, "id", getPackageName());
             Button classroomUiObject = (Button) findViewById(classroomResourceId);
             classroomUiObject.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.light_blue)));;
+            if(selectedClassroomsReservations.isEmpty()){
+                Button bookAllSelectedBtn = (Button) findViewById(R.id.bookAllBtn);
+                bookAllSelectedBtn.setEnabled(false);
+            }
         }
         else {
             Classroom clickedClassroom = (Classroom) floorState.floorState.get(clickedClassroomId);
@@ -225,10 +263,14 @@ public class FloorActivityClassroom extends AppCompatActivity {
                         selectedClassroomsReservations.add(new Reservation(floorState.floor, clickedClassroomId, Date.valueOf(date),
                                 Time.valueOf(startTime), selectedEndTime, reservedObjectType));
                         if(userType == UserType.student) {
-                            executeOrders();
-                            Intent intent = new Intent(FloorActivityClassroom.this, StudentBookChairActivity.class);
+                            Intent intent = new Intent(FloorActivityClassroom.this, ClassRoomRequestActivity.class);
                             Bundle bundle = new Bundle();
-                            bundle.putString("id", userId);
+                            bundle.putString( "userId", userId);
+                            bundle.putString( "classroomId", clickedClassroomId);
+                            bundle.putString( "startTime", startTime);
+                            bundle.putString( "endTime", selectedEndTime.toString());
+                            bundle.putString( "date", date);
+                            bundle.putChar( "floor", floorState.floor);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
@@ -249,13 +291,6 @@ public class FloorActivityClassroom extends AppCompatActivity {
                 }
             }
         });
-
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void executeOrders() throws Exception {
-        floorState.addReservationsToDB(selectedClassroomsReservations, userId);
     }
 
 }

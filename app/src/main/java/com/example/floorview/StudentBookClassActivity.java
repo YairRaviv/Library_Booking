@@ -244,7 +244,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
                             result.getString("tableId"),
                             result.getDate("reservationDate"),
                             result.getTime("startTime"),
-                            result.getTime("endTime"));
+                            result.getTime("endTime"), ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -279,7 +279,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
     public void SelectClassButton(View view) throws SQLException, ParseException {
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         floor = String.valueOf(mySpinner.getSelectedItem());
-        Intent intent = new Intent(StudentBookClassActivity.this, FloorActivity.class);
+        Intent intent = new Intent(StudentBookClassActivity.this, FloorActivityClassroom.class);
         char level = floor.charAt(0);
         String [] dateStringArr = dateText.getText().toString().split("/");
         String dateString = dateStringArr[2]+"-"+dateStringArr[0]+"-"+dateStringArr[1];
@@ -289,6 +289,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         bundle.putChar("level", level);
         bundle.putString("date",dateString);
         bundle.putString("startTime", timeString);
+        bundle.putString("userType", "student");
         intent.putExtras(bundle);
         startActivity(intent);
     }

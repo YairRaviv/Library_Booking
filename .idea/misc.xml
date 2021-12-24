@@ -3,40 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/drawable/bg_round.xml" value="0.22135416666666666" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_main3.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/librarian_bookclass_activity.xml" value="0.21458333333333332" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/my_custom_list_layout.xml" value="0.2234375" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/progress_dialog.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/student_bookchair_activity.xml" value="0.2234375" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/student_bookclass_activity.xml" value="0.2234375" />
-        <entry key="..\:/Users/Amazya Bashan/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/student_main_activity.xml" value="0.23072916666666668" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_change_credentials.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_check_reservations.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_class_room_request.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_librarian_main.xml" value="0.5" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_login.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_main.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_main3.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_main_new.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/activity_registration_screen.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/chair_layout.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/floor_a_layout.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/my_custom_list_layout.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/requests_layout.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/student_bookchair_activity.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Library_Booking/app/src/main/res/layout/student_main_activity.xml" value="0.20885416666666667" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/drawable/floor_a_layout.xml" value="0.3828125" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main.xml" value="0.30816831683168316" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main3.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main_new.xml" value="0.2" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_registration_screen.xml" value="0.10416666666666667" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/chair_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/classroom_selection_popup.xml" value="0.2869791666666667" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_a_layout.xml" value="0.18" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_a_layout_classroom.xml" value="0.2" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_a_layout_table.xml" value="0.33" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_b_layout.xml" value="0.25" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_b_layout_classroom.xml" value="0.1" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_c_layout.xml" value="0.25" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_c_layout_classroom.xml" value="0.22" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_c_layout_table.xml" value="0.2" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_d_layout.xml" value="0.16" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_d_layout_classroom.xml" value="0.2" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_layout.xml" value="0.22" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/progress_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/student_bookchair_activity.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/table_layout.xml" value="0.33" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/table_selection_popup.xml" value="0.33" />

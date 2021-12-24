@@ -30,6 +30,7 @@ public class FloorActivityTable extends AppCompatActivity {
     TextView timeText;
     String userId;
     ReservedObjectType reservedObjectType;
+    final LoadingBar loadingBar = new LoadingBar(FloorActivityTable.this);
 
 
     @Override
@@ -71,9 +72,19 @@ public class FloorActivityTable extends AppCompatActivity {
     }
 
     private void initiateViewDataOnStart(){
-        HashMap<String, ReservableObject> floorTablesState = floorState.getFloorState();
+//        HashMap<String, ReservableObject> floorTablesState = floorState.getFloorState();
+        AsyncTasksWrapper.ExtractDataFromDbTask extractDataFromDbTask = new AsyncTasksWrapper.ExtractDataFromDbTask(FloorActivityTable.this, loadingBar, floorState);
+        extractDataFromDbTask.setListener(new AsyncTasksWrapper.ExtractDataFromDbTask.AsyncTaskListener(){
+            @Override
+            public void onAsyncTaskFinished(HashMap<String, ReservableObject> result) {
+                updateViewComponents(result);
+            }
+        });
+        extractDataFromDbTask.execute();
+    }
+    private void updateViewComponents(HashMap<String, ReservableObject>  floorTablesState) {
         for(int i = 1; i<= floorState.getNumRelevantObjectInFloor(); i++){
-            String tableId = "floorState"+ floorState.floor +"_table"+i;
+            String tableId = "floor"+ floorState.floor +"_table"+i;
             int tableResourceId = getResources().getIdentifier(tableId, "id", getPackageName());
             Button tableUiObject = (Button) findViewById(tableResourceId);
             if(tableUiObject != null) {
@@ -84,7 +95,7 @@ public class FloorActivityTable extends AppCompatActivity {
                     } else {
                         tableUiObject.setBackground(ContextCompat.getDrawable(this.getBaseContext(), R.drawable.table_taken));
                     }
-                    table.name = "T" + i;
+                    table.setName("T" + i);
                     tableUiObject.setText(table.name);
                 }
                 else{
@@ -96,7 +107,7 @@ public class FloorActivityTable extends AppCompatActivity {
         }
     }
 
-    private void showtimePickerDialog(){
+        private void showtimePickerDialog(){
         int hour = Integer.parseInt(startTime.split(":")[0]);
         int minute = Integer.parseInt(startTime.split(":")[1]);
         int style = android.app.AlertDialog.THEME_HOLO_DARK;
@@ -175,20 +186,28 @@ public class FloorActivityTable extends AppCompatActivity {
                     Toast.makeText(FloorActivityTable.this, "Missing valid end time selection", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    try {
-                        floorState.addReservationToDB(clickedTableId, selectedEndTime, userId);
-                        Intent intent = new Intent(FloorActivityTable.this, StudentBookChairActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("id", userId);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        initiateViewDataOnStart();
-                        Toast.makeText(FloorActivityTable.this, "Selected table state has changed, please select again", Toast.LENGTH_LONG).show();
-                    }
-                    finally {
-                        selectionPopupDialog.dismiss();
-                    }
+                    AsyncTasksWrapper.ExecuteTableUpdateTask executeTableUpdateTask = new AsyncTasksWrapper.ExecuteTableUpdateTask(FloorActivityTable.this,
+                            loadingBar, floorState, clickedTableId, selectedEndTime, userId);
+                    executeTableUpdateTask.setListener(new AsyncTasksWrapper.ExecuteTableUpdateTask.AsyncTaskListener(){
+                        @Override
+                        public void onAsyncTaskFinished(Boolean result) {
+                            if(!result){
+                                initiateViewDataOnStart();
+                                Toast.makeText(FloorActivityTable.this, "Selected table state has changed, please select again", Toast.LENGTH_LONG).show();
+                                selectionPopupDialog.dismiss();
+                            }
+                            else {
+                                Intent intent = new Intent(FloorActivityTable.this, StudentBookChairActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("userId", userId);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                selectionPopupDialog.dismiss();
+
+                            }
+                        }
+                    });
+                    executeTableUpdateTask.execute();
                 }
             }
         });
