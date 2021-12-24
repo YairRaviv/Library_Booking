@@ -24,11 +24,9 @@ public class LibrarianMainActivity extends AppCompatActivity {
         OnClickCheckReservations = (Button)findViewById(R.id.CheckRequests);
 
         OnClickClassBooking.setOnClickListener(view -> {
-
-//            Intent intent = new Intent(LibrarianMainActivity.this, LibrarianBookClassActivity.class);
-//            intent.putExtra("userId",userId);
-//            startActivity(intent);
-
+            Intent intent = new Intent(LibrarianMainActivity.this, LibrarianBookClassActivity.class);
+            intent.putExtra("userId",userId);
+            startActivity(intent);
         });
         OnClickCheckReservations.setOnClickListener(view ->
         {

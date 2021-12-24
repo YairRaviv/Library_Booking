@@ -31,4 +31,11 @@ public abstract class ReservableObject {
     }
 
     abstract void addReservation(Reservation reservation);
+
+    public void setName(String name) {
+        this.name = name;
+        updateDescription();
+    }
+
+    abstract protected void updateDescription();
 }

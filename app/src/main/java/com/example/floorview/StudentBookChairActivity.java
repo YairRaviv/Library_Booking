@@ -68,7 +68,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(StudentBookChairActivity.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.floors));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setPrompt("Select FloorState");
+        mySpinner.setPrompt("Select Floor");
         mySpinner.setAdapter(myAdapter);
         try {
             initiateReservations();
@@ -257,7 +257,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
                 while (result.next()) {
                     Map<String, String> dtname = new HashMap<String, String>();
                     Reservation currReservation = new Reservation(result.getInt("reservationId"),
-                            result.getString("floorState").charAt(0),
+                            result.getString("floor").charAt(0),
                             result.getString("tableId"),
                             result.getDate("reservationDate"),
                             result.getTime("startTime"),

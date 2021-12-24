@@ -263,7 +263,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
                             result.getString("tableId"),
                             result.getDate("reservationDate"),
                             result.getTime("startTime"),
-                            result.getTime("endTime"),ReservedObjectType.classroom);
+                            result.getTime("endTime"), ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -308,7 +308,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         bundle.putChar("level", level);
         bundle.putString("date",dateString);
         bundle.putString("startTime", timeString);
-        bundle.putString("userType","student");
+        bundle.putString("userType", "student");
         intent.putExtras(bundle);
         startActivity(intent);
     }

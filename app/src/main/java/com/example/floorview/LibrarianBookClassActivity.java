@@ -247,7 +247,7 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
                             result.getString("tableId"),
                             result.getDate("reservationDate"),
                             result.getTime("startTime"),
-                            result.getTime("endTime"), ReservedObjectType.classroom);
+                            result.getTime("endTime") ,ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -292,7 +292,7 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         bundle.putChar("level", level);
         bundle.putString("date",dateString);
         bundle.putString("startTime", timeString);
-        bundle.putString("userType","librarian");
+        bundle.putString("userType", "librarian");
         intent.putExtras(bundle);
         startActivity(intent);
     }

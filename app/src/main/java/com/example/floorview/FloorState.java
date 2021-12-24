@@ -64,11 +64,7 @@ public class FloorState {
     public ArrayList<Reservation> getUpdatedReservationsFromDB() {
         ArrayList<Reservation> reservations = new ArrayList<>();
         System.out.println("updateFloorState");
-        String queryStringStartBeforeEndDuring = "(`startTime` < '"+startTime+"' AND `endTime` < '"+maxEndTime+"')";
-        String queryStringStartAfter = "(`startTime` > '"+startTime+"' AND `startTime` < '"+maxEndTime+"')";
-        String queryStringStartAt = "(`startTime` = '"+startTime+"')";
-        String queryString = "SELECT * FROM `Reservations` WHERE `floor` = '"+ floor +"' AND `reservationDate` = '"+reservationDate
-                +"' AND ("+queryStringStartBeforeEndDuring+" OR " +queryStringStartAfter+" OR "+queryStringStartAt+")";
+        String queryString = buildQueryString();
         ResultSet result = dbConnector.executeQuery(queryString);
         if(result!=null){
                 try {
@@ -90,6 +86,25 @@ public class FloorState {
                 }
         }
         return reservations;
+    }
+
+    private String buildQueryString() {
+        if(reservedObjectType == ReservedObjectType.table) {
+            String queryStringStartBeforeEndDuring = "(`startTime` < '" + startTime + "' AND `endTime` < '" + maxEndTime + "')";
+            String queryStringStartAfter = "(`startTime` > '" + startTime + "' AND `startTime` < '" + maxEndTime + "')";
+            String queryStringStartAt = "(`startTime` = '" + startTime + "')";
+            String queryString = "SELECT * FROM `Reservations` WHERE `floor` = '" + floor + "' AND `reservationDate` = '" + reservationDate
+                    + "' AND (" + queryStringStartBeforeEndDuring + " OR " + queryStringStartAfter + " OR " + queryStringStartAt + ")";
+            return queryString;
+        }
+        else{
+            String queryStringStartBeforeEndDuring = "(`StartTime` < '" + startTime + "' AND `EndTime` < '" + maxEndTime + "')";
+            String queryStringStartAfter = "(`StartTime` > '" + startTime + "' AND `StartTime` < '" + maxEndTime + "')";
+            String queryStringStartAt = "(`StartTime` = '" + startTime + "')";
+            String queryString = "SELECT * FROM `ClassReservations` WHERE `Floor` = '" + floor + "' AND `ReservationDate` = '" + reservationDate
+                    + "' AND (" + queryStringStartBeforeEndDuring + " OR " + queryStringStartAfter + " OR " + queryStringStartAt + ")";
+            return queryString;
+        }
     }
 
 
@@ -122,7 +137,7 @@ public class FloorState {
 
 
     public ReservableObject addUnreservedObject(String id, int indexForStringName){
-        ReservableObject reservableObject = ReservedObjectFactory.createReservedObject(id, maxEndTime, Time.valueOf(startTime), "T"+indexForStringName, reservedObjectType);
+        ReservableObject reservableObject = ReservedObjectFactory.createReservedObject(id, maxEndTime, Time.valueOf(startTime), indexForStringName, reservedObjectType);
         floorState.put(id, reservableObject);
         return reservableObject;
     }
@@ -148,7 +163,6 @@ public class FloorState {
             reservationsList = newReservationsState;
             throw new Exception("State has change");
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -159,10 +173,10 @@ public class FloorState {
         currentReservationsStateCopy.addAll(this.reservationsList);
         Collections.sort(currentReservationsStateCopy, Comparator.comparing(Reservation::getReservationid));
         if(newReservationsState.equals(currentReservationsStateCopy)){
-            String queryStringReservations= "INSERT INTO Reservations (`floor`, `tableId`, `reservationDate`, `startTime`, `endTime`, `userId`) VALUES" ;
+            String queryStringReservations= "INSERT INTO ClassReservations (`Floor`, `ClassRoomID`, `ReservationDate`, `StartTime`, `EndTime` , `UserID` , `Arrived` , `Status`) VALUES ";
             for(Reservation reservation : reservations) {
-                queryStringReservations += " ('" + floor + "', '" + reservation.reservedObjectId + "', '" + reservationDate + "', '" +
-                        startTime + "', '" + reservation.endTime.toString() + "', '" + userId + "'),";
+                queryStringReservations += "('"+floor+"', '"+reservation.reservedObjectId+"', '"+reservationDate+"', '"+startTime+"', '"+reservation.endTime.toString()+
+                        "' , '"+userId+"' , '"+"No"+"' , '"+"Approved"+"' ),";
             }
             queryStringReservations = queryStringReservations.substring(0, queryStringReservations.length()-1) + ";";
             dbConnector.executeUpdate(queryStringReservations);

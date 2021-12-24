@@ -33,16 +33,14 @@ public class FloorData {
     private void setNumClassroomsInFloor() {
         switch (floor){
             case 'A':
+            case 'B':
                 numClassroomsInFloor=2;
                 break;
-            case 'B':
+            case 'C':
                 numClassroomsInFloor=3;
                 break;
-            case 'C':
-                numTablesInFloor=4;
-                break;
             default:
-                numTablesInFloor=5;
+                numClassroomsInFloor=4;
                 break;
         }
     }

@@ -22,11 +22,20 @@
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main.xml" value="0.30816831683168316" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/activity_main_new.xml" value="0.2" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/chair_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/classroom_selection_popup.xml" value="0.2869791666666667" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_a_layout.xml" value="0.18" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_a_layout_classroom.xml" value="0.2" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_a_layout_table.xml" value="0.33" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_b_layout.xml" value="0.25" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_b_layout_classroom.xml" value="0.1" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_c_layout.xml" value="0.25" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_c_layout_classroom.xml" value="0.22" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_c_layout_table.xml" value="0.2" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_d_layout.xml" value="0.16" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_d_layout_classroom.xml" value="0.2" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/floor_layout.xml" value="0.22" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/progress_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/student_bookchair_activity.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/table_layout.xml" value="0.33" />
         <entry key="..\:/Users/yuval/AndroidStudioProjects/FloorVIew/app/src/main/res/layout/table_selection_popup.xml" value="0.33" />
       </map>
