@@ -32,6 +32,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".FloorActivityClassroom"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".StudentBookChairActivity"
             android:exported="false" />
         <activity
@@ -49,6 +53,12 @@
         <activity
             android:name=".ClassRoomRequestActivity"
             android:exported="true" />
+        <activity
+            android:name=".TempClassroomMain"
+            android:exported="true" />
+        <activity
+            android:name=".LibrarianBookClassActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

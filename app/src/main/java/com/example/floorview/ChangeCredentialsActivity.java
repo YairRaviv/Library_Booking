@@ -36,7 +36,7 @@ public class ChangeCredentialsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_credentials);
         Bundle bundle = getIntent().getExtras();
-        userId = bundle.getString("id");
+        userId = bundle.getString("userId");
         ID = (EditText)findViewById(R.id.C_ID);
         Password_1 = (EditText)findViewById(R.id.C_Password1);
         Password_2 = (EditText)findViewById(R.id.C_Password2);
@@ -144,7 +144,7 @@ public class ChangeCredentialsActivity extends AppCompatActivity
                                 {
                                     Intent intent = new Intent(ChangeCredentialsActivity.this, LibrarianMainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra("id",AuthDB.getCurrentUser().getUid());
+                                    intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
                                     startActivity(intent);
                                     finish();
                                 }
@@ -152,7 +152,7 @@ public class ChangeCredentialsActivity extends AppCompatActivity
                                 {
                                     Intent intent = new Intent(ChangeCredentialsActivity.this, StudentMainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra("id",AuthDB.getCurrentUser().getUid());
+                                    intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
                                     startActivity(intent);
                                     finish();
                                 }

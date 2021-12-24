@@ -124,7 +124,7 @@ public class Login_Registration_Screen extends AppCompatActivity
                         //move to main screen - librarian
                         Intent intent = new Intent(Login_Registration_Screen.this, LibrarianMainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("id",AuthDB.getCurrentUser().getUid());
+                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
                         startActivity(intent);
                         finish();
                     }
@@ -133,7 +133,7 @@ public class Login_Registration_Screen extends AppCompatActivity
                         //move to main screen - student
                         Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("id",AuthDB.getCurrentUser().getUid());
+                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
                         startActivity(intent);
                         finish();
                     }

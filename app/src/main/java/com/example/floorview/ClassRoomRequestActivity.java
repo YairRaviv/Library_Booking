@@ -81,7 +81,7 @@ public class ClassRoomRequestActivity extends AppCompatActivity
         userId = bundle.getString("userId");
         startTime = bundle.getString("startTime");
         endTime = bundle.getString("endTime");
-        reservationDate = bundle.getString("reservationDate");
+        reservationDate = bundle.getString("date");
         classroomId = bundle.getString("classroomId");
         floor = bundle.getChar("floor");
 

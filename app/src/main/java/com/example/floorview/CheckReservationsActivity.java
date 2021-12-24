@@ -3,7 +3,11 @@ package com.example.floorview;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +41,7 @@ public class CheckReservationsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_reservations);
         Bundle bundle = getIntent().getExtras();
-        //userId = bundle.getString("userId");
+        userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
         try
         {
@@ -107,5 +111,42 @@ public class CheckReservationsActivity extends AppCompatActivity
             //need to go over userReservations and get all user reservations details
         }
         return ClassRequests;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.student_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
+        switch (item.getItemId()) {
+            case R.id.librarian_menu_book_class:
+                //Toast.makeText(this, "Book Chair clicked", Toast.LENGTH_LONG).show();
+                intent = new Intent(this, LibrarianBookClassActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.librarian_menu_requests:
+                intent = new Intent(this, CheckReservationsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.librarian_menu_change_details:
+                intent = new Intent(this, ChangeCredentialsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.librarian_menu_logout:
+                intent = new Intent(this, Login_Registration_Screen.class);
+                startActivity(intent);
+                return true;
+        }
+        return true;
     }
 }
