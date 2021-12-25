@@ -133,6 +133,7 @@ public class Login_Registration_Screen extends AppCompatActivity
                         //move to main screen - student
                         Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        String i = AuthDB.getCurrentUser().getUid();
                         intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
                         startActivity(intent);
                         finish();

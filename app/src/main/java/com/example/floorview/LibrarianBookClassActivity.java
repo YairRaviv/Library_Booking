@@ -18,6 +18,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,8 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
     DatePickerDialog datePickerDialog;
     int selected_date;
     List<Reservation> reservationsList;
+    Button selectClassBtn;
+    Button selectTimeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +61,10 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         Bundle bundle = getIntent().getExtras();
         userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
-//        try {
-//            userReservationsView();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
+        selectClassBtn = (Button) LibrarianBookClassActivity.this.findViewById(R.id.btnSelectClass);
+        selectTimeBtn = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
+        selectClassBtn.setEnabled(false);
+        selectTimeBtn.setEnabled(false);
 
         // Spinner
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
@@ -186,14 +188,9 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         Date d = new Date(year,monthOfYear,dayOfMonth);
         Calendar c = Calendar.getInstance();
         c.setTime(d);
-//        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-//        if (dayOfWeek == 1){
-//            dateText.setText(date);MyCustomAdapter
-//        }
         dateText.setText(date);
-//        else{
-//
-//        }
+        selectTimeBtn.setEnabled(true);
+
     }
 
     private void showTimePickerDialog(){
@@ -228,12 +225,35 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         int year = datePickerDialog.getSelectedDay().getYear();
         int hour = hourOfDay;
         int min = minute;
+
         String time = String.format(Locale.getDefault(), "%02d:%02d", hour, min);
-        timeText.setText(time);
+        Calendar rightNow = Calendar.getInstance();
+        int rightNow_day = rightNow.get(Calendar.DAY_OF_MONTH);
+        int rightNow_month = rightNow.get(Calendar.MONTH)+1;
+        int rightNow_hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int rightNow_minute = rightNow.get(Calendar.MINUTE);
+        String [] selectedDateStringArr = dateText.getText().toString().split("/");
+        String selectedDateString = selectedDateStringArr[2]+"-"+selectedDateStringArr[0]+"-"+selectedDateStringArr[1];
+        int selected_month = Integer.parseInt(selectedDateStringArr[0]);
+        int selected_day = Integer.parseInt(selectedDateStringArr[1]);
+        if (0 <= hourOfDay && hourOfDay <= 7){
+            Toast.makeText(LibrarianBookClassActivity.this, "Can't select time after 00:00 and before 07:00", Toast.LENGTH_SHORT).show();
+        }
+        else if (rightNow_month == selected_month && rightNow_day == selected_day && rightNow_hour < hour+1){
+            Toast.makeText(LibrarianBookClassActivity.this, "Can't select passed time", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            timeText.setText(time);
+        }
+        if (dateText.getText().toString() != null && timeText.getText().toString() != null){
+            selectClassBtn.setEnabled(true);
+        }
     }
 
     public List<Reservation> getData() throws SQLException {
-        String queryString = "SELECT * FROM Reservations WHERE userId = '" + userId + "'";
+        String[] threeNextDays = new String[3];
+        threeNextDays = getThreeNextDays();
+        String queryString = "SELECT * FROM ClassReservations WHERE userId = '" + userId + "' and ReservationDate in ('"+threeNextDays[0]+"','"+threeNextDays[1]+"','"+threeNextDays[2]+"')";
         ResultSet result = dbConnector.executeQuery(queryString);
         List<Reservation> userReservations = new ArrayList<>();
         String reservationId = "";
@@ -243,11 +263,11 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
                 while (result.next()) {
                     Map<String, String> dtname = new HashMap<String, String>();
                     Reservation currReservation = new Reservation(result.getInt("reservationId"),
-                            result.getString("floor").charAt(0),
-                            result.getString("tableId"),
-                            result.getDate("reservationDate"),
-                            result.getTime("startTime"),
-                            result.getTime("endTime") ,ReservedObjectType.classroom);
+                            result.getString("Floor").charAt(0),
+                            result.getString("ClassRoomID"),
+                            result.getDate("ReservationDate"),
+                            result.getTime("StartTime"),
+                            result.getTime("EndTime"),ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -295,6 +315,24 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         bundle.putString("userType", "librarian");
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public String[] getThreeNextDays(){
+        Calendar curr = Calendar.getInstance();
+        int day, month, year;
+        int count = 0;
+        String date = "";
+        String[] dates_array = new String[3];
+        while(count != 3){
+            day = curr.get(Calendar.DAY_OF_MONTH);
+            month = curr.get(Calendar.MONTH)+1;
+            year = curr.get(Calendar.YEAR);
+            date = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
+            dates_array[count] = date;
+            curr.add(Calendar.DAY_OF_WEEK,1);
+            count+=1;
+        }
+        return dates_array;
     }
 
     @Override

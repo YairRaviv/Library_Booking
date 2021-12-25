@@ -249,7 +249,9 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
     }
 
     public List<Reservation> getData() throws SQLException {
-        String queryString = "SELECT * FROM ClassReservations WHERE userId = '" + userId + "'";
+        String[] threeNextDays = new String[3];
+        threeNextDays = getThreeNextDays();
+        String queryString = "SELECT * FROM ClassReservations WHERE userId = '" + userId + "' and ReservationDate in ('"+threeNextDays[0]+"','"+threeNextDays[1]+"','"+threeNextDays[2]+"')";
         ResultSet result = dbConnector.executeQuery(queryString);
         List<Reservation> userReservations = new ArrayList<>();
         String reservationId = "";
@@ -258,12 +260,12 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
             try {
                 while (result.next()) {
                     Map<String, String> dtname = new HashMap<String, String>();
-                    Reservation currReservation = new Reservation(result.getInt("reservationId"),
-                            result.getString("floor").charAt(0),
-                            result.getString("tableId"),
-                            result.getDate("reservationDate"),
-                            result.getTime("startTime"),
-                            result.getTime("endTime"), ReservedObjectType.classroom);
+                    Reservation currReservation = new Reservation(result.getInt("ReservationID"),
+                            result.getString("Floor").charAt(0),
+                            result.getString("ClassRoomID"),
+                            result.getDate("ReservationDate"),
+                            result.getTime("StartTime"),
+                            result.getTime("EndTime"),ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
             } catch (SQLException throwables) {
@@ -311,6 +313,24 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         bundle.putString("userType", "student");
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public String[] getThreeNextDays(){
+        Calendar curr = Calendar.getInstance();
+        int day, month, year;
+        int count = 0;
+        String date = "";
+        String[] dates_array = new String[3];
+        while(count != 3){
+            day = curr.get(Calendar.DAY_OF_MONTH);
+            month = curr.get(Calendar.MONTH)+1;
+            year = curr.get(Calendar.YEAR);
+            date = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
+            dates_array[count] = date;
+            curr.add(Calendar.DAY_OF_WEEK,1);
+            count+=1;
+        }
+        return dates_array;
     }
 
     @Override
