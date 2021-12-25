@@ -24,11 +24,9 @@ public class LibrarianMainActivity extends AppCompatActivity {
         OnClickCheckReservations = (Button)findViewById(R.id.CheckRequests);
 
         OnClickClassBooking.setOnClickListener(view -> {
-
-//            Intent intent = new Intent(LibrarianMainActivity.this, LibrarianBookClassActivity.class);
-//            intent.putExtra("userId",userId);
-//            startActivity(intent);
-
+            Intent intent = new Intent(LibrarianMainActivity.this, LibrarianBookClassActivity.class);
+            intent.putExtra("userId",userId);
+            startActivity(intent);
         });
         OnClickCheckReservations.setOnClickListener(view ->
         {
@@ -41,7 +39,7 @@ public class LibrarianMainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.student_menu, menu);
+        inflater.inflate(R.menu.librarian_menu, menu);
         return true;
     }
 

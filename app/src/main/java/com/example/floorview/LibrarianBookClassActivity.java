@@ -312,7 +312,7 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         bundle.putChar("level", level);
         bundle.putString("date",dateString);
         bundle.putString("startTime", timeString);
-        bundle.putString("userType","librarian");
+        bundle.putString("userType", "librarian");
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -338,7 +338,7 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.student_menu, menu);
+        inflater.inflate(R.menu.librarian_menu, menu);
         return true;
     }
 

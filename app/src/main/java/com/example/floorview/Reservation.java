@@ -42,7 +42,7 @@ public class Reservation implements Comparable<Reservation> {
     @Override
     public boolean equals(Object resObj) {
         Reservation other = (Reservation) resObj;
-        return reservationId == other.reservationId;
+        return reservationId == other.reservationId && reservedObjectType == other.reservedObjectType && reservedObjectId.equals(other.reservedObjectId);
     }
 
     public String toString(){

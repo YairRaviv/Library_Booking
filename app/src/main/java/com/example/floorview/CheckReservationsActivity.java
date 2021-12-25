@@ -2,6 +2,7 @@ package com.example.floorview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,36 +43,45 @@ public class CheckReservationsActivity extends AppCompatActivity
         Bundle bundle = getIntent().getExtras();
         userId = bundle.getString("userId");
         dbConnector = DBConnector.getInstance();
+        try
+        {
+            initiateRequests();
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    private void initiateReservations() throws SQLException, ParseException
+    @SuppressLint("SetTextI18n")
+    private void initiateRequests() throws SQLException, ParseException
     {
         ListView listview = (ListView) findViewById(R.id.RequestsListView);
         RequestsList =  GetPendingRequests();
         // user has no reservations yet
         if (RequestsList.isEmpty())
         {
-            ListView lv = (ListView)findViewById(R.id.RequestsListView);
             emptyText = (TextView)findViewById(R.id.empty);
             emptyText.setText("There is No Requests");
-            lv.setEmptyView(emptyText);
+            listview.setEmptyView(emptyText);
+            Toast.makeText(CheckReservationsActivity.this, "bad request list", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            System.out.println("after userReservationsView()");
+            Toast.makeText(CheckReservationsActivity.this, "thats works", Toast.LENGTH_SHORT).show();
             //instantiate custom adapter
             RequestsAdapter Requestsadapter = new RequestsAdapter(RequestsList, this);
-
             //handle listview and assign adapter
-            ListView lView = (ListView) findViewById(R.id.RequestsListView);
-            lView.setAdapter(Requestsadapter);
+            listview.setAdapter(Requestsadapter);
         }
     }
 
 
     public List<ClassRequest> GetPendingRequests() throws SQLException
     {
-        String queryString = "SELECT * FROM ClassRequests WHERE Status = Pending";
+        String queryString = "SELECT * FROM ClassRequests";
         ResultSet result = dbConnector.executeQuery(queryString);
         List<ClassRequest> ClassRequests = new ArrayList<>();
         //String reservationId = "";
@@ -105,7 +116,7 @@ public class CheckReservationsActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.student_menu, menu);
+        inflater.inflate(R.menu.librarian_menu, menu);
         return true;
     }
 

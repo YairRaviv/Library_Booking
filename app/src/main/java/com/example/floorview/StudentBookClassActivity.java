@@ -234,8 +234,8 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         String selectedDateString = selectedDateStringArr[2]+"-"+selectedDateStringArr[0]+"-"+selectedDateStringArr[1];
         int selected_month = Integer.parseInt(selectedDateStringArr[0]);
         int selected_day = Integer.parseInt(selectedDateStringArr[1]);
-        if (0 <= hourOfDay && hourOfDay <= 7){
-            Toast.makeText(StudentBookClassActivity.this, "Can't select time after 00:00 and before 07:00", Toast.LENGTH_SHORT).show();
+        if (20 <= hourOfDay || hourOfDay <= 7){
+            Toast.makeText(StudentBookClassActivity.this, "Can't select time after 20:00 and before 08:00", Toast.LENGTH_SHORT).show();
         }
         else if (rightNow_month == selected_month && rightNow_day == selected_day && rightNow_hour < hour+1){
             Toast.makeText(StudentBookClassActivity.this, "Can't select passed time", Toast.LENGTH_SHORT).show();
@@ -310,7 +310,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         bundle.putChar("level", level);
         bundle.putString("date",dateString);
         bundle.putString("startTime", timeString);
-        bundle.putString("userType","student");
+        bundle.putString("userType", "student");
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -332,7 +332,6 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         }
         return dates_array;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -370,5 +369,4 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         }
         return true;
     }
-
 }
