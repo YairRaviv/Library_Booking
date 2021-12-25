@@ -237,7 +237,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         if (20 <= hourOfDay || hourOfDay <= 7){
             Toast.makeText(StudentBookClassActivity.this, "Can't select time after 20:00 and before 08:00", Toast.LENGTH_SHORT).show();
         }
-        else if (rightNow_month == selected_month && rightNow_day == selected_day && rightNow_hour < hour+1){
+        else if (rightNow_month == selected_month && rightNow_day == selected_day && hour < rightNow_hour+1){
             Toast.makeText(StudentBookClassActivity.this, "Can't select passed time", Toast.LENGTH_SHORT).show();
         }
         else{

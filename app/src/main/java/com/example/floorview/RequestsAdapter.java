@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -78,7 +79,7 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
                 progress = new ProgressDialog(v.getContext());
                 progress.show();
                 progress.setContentView(R.layout.progress_dialog);
-                RelativeLayout rl = (RelativeLayout)v.getParent();
+                LinearLayout rl = (LinearLayout)v.getParent();
                 TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
                 String text = tv.getText().toString();
                 int space_index = text.indexOf(' ');
