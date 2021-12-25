@@ -66,8 +66,9 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
         Button CallStudent = (Button)view.findViewById(R.id.CallToStudent);
 
         /*
-          When user clicks on 'CANCEL' button:
+          When user clicks on 'Reject' button:
             - The reservation is removed from the db
+            - The request is removed from the db
             - The reservation is removed from the user screen
          */
         RejectBtn.setOnClickListener(new View.OnClickListener()
@@ -80,11 +81,12 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
                 progress.setContentView(R.layout.progress_dialog);
                 LinearLayout rl = (LinearLayout)v.getParent();
                 TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
-                String text = tv.getText().toString();
+                String text = listItemText.getText().toString();
                 int space_index = text.indexOf(' ');
                 int linebreak_index = text.indexOf("\n");
-                String reservationId = text.substring(space_index+1,linebreak_index);
-
+                int i = 16;
+                while(text.charAt(i)!='\n'){i++;}
+                String reservationId = text.substring(16,i);
                 String queryString = "DELETE from ClassRequests WHERE ReservationID = "+ reservationId;
                 dbConnector.executeUpdate(queryString);
                 String queryString2 = "DELETE from ClassReservations WHERE ReservationID = "+ reservationId;
@@ -97,8 +99,9 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
         });
 
         /*
-          When user clicks on 'ARRIVED' button:
-            - The reservation 'Arrived' column in the db is populated with 'Yes'
+          When user clicks on 'Approve' button:
+            - The reservation 'Status' column in the db is populated with 'Approved'
+            - The request is removed from the db
             - This button becomes disable
          */
         ApproveBtn.setOnClickListener(new View.OnClickListener()
@@ -112,10 +115,10 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
                 progress.setContentView(R.layout.progress_dialog);
                 LinearLayout rl = (LinearLayout)v.getParent();
                 TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
-                String text = tv.getText().toString();
-                int space_index = text.indexOf(' ');
-                int linebreak_index = text.indexOf("\n");
-                String reservationId = text.substring(space_index+1,linebreak_index);
+                String text = listItemText.getText().toString();
+                int i = 16;
+                while(text.charAt(i)!='\n'){i++;}
+                String reservationId = text.substring(16,i);
                 String queryString = "UPDATE ClassReservations SET Status = 'Approved' WHERE ReservationID = "+ reservationId;
                 dbConnector.executeUpdate(queryString);
                 String queryString2 = "DELETE from ClassRequests WHERE ReservationID = "+ reservationId;
@@ -127,22 +130,24 @@ public class RequestsAdapter extends BaseAdapter implements ListAdapter
         CallStudent.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
-                //CallStudent.setEnabled(false);
-                //notifyDataSetChanged();
+            public void onClick(View v)
+            {
+
                 progress = new ProgressDialog(v.getContext());
                 progress.show();
                 progress.setContentView(R.layout.progress_dialog);
                 LinearLayout rl = (LinearLayout)v.getParent();
                 TextView tv = (TextView)rl.findViewById(R.id.list_item_string2);
-                String text = tv.getText().toString();
+                String text = listItemText.getText().toString();
                 int end = text.length();
                 int start = text.length()-10;
                 String PhoneNumber = text.substring(start,end);
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:"+PhoneNumber));
-                context.startActivity(callIntent);
-                progress.dismiss();
+
+
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:"+PhoneNumber));
+                context.startActivity(i);
+
             }
         });
         return view;

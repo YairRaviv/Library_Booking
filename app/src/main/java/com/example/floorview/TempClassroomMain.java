@@ -27,10 +27,6 @@ public class TempClassroomMain extends AppCompatActivity {
         Intent intent = new Intent(TempClassroomMain.this, LibrarianMainActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("userId", "1");
-//        bundle.putChar("level", 'A');
-//        bundle.putString("date","2021-12-12");
-//        bundle.putString("startTime", "11:00:00");
-//        bundle.putString("userType", "librarian");
         intent.putExtras(bundle);
         startActivity(intent);
         //Toast.makeText(MainActivity.this, "Start", Toast.LENGTH_LONG).show();
@@ -55,9 +51,4 @@ public class TempClassroomMain extends AppCompatActivity {
      * @param view
      */
 
-//    public void BookClassroomButton(View view) {
-//        Toast.makeText(MainActivity.this, "You clicked on BookClassroomButton button", Toast.LENGTH_LONG).show();
-//        Intent intent = new Intent(MainActivity.this, MainActivity3.class);
-//        startActivity(intent);
-//    }
 }

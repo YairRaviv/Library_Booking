@@ -28,26 +28,22 @@ public class StudentMainActivity extends AppCompatActivity{
         Bundle bundle = getIntent().getExtras();
         userId = bundle.getString("userId");
         setContentView(R.layout.student_main_activity);
-        // Toast.makeText(StudentMainActivity.this, "Your Text", Toast.LENGTH_LONG).show();
         tv = (TextView)findViewById(R.id.book_class_btn);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //Toast.makeText(MainActivity.this, "Start", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        //Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        //Toast.makeText(MainActivity.this, "Stop", Toast.LENGTH_LONG).show();
     }
 
     /**

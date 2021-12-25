@@ -72,22 +72,6 @@ public class Login_Registration_Screen extends AppCompatActivity
         });
     }
 
-//    public void OnClickLogin(View view)
-//    {
-//        String mail,pass;
-//        mail = TxtUserName.getText().toString();
-//        pass = TxtPassword.getText().toString();
-//        System.out.println("mail is : "+mail+"\npass is :"+pass);
-//        //validation // if bla bla bla ...
-//        LoginUser(mail,pass);
-//    }
-//
-//    public void OnClickRegister(View view)
-//    {
-//        Intent intent = new Intent(Login_Registration_Screen.this , Registration_Screen.class);
-//        startActivity(intent);
-//    }
-
     public void LoginUser( String mail ,  String pass)
     {
         AuthDB.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>()
@@ -119,27 +103,6 @@ public class Login_Registration_Screen extends AppCompatActivity
                             }
                         }
                     });
-//                    String lc = lcs[0];
-//                    String [] acceptableLibrarianCodes = getResources().getStringArray(R.array.librarianCodes);
-//                    if(Arrays.stream(acceptableLibrarianCodes).anyMatch(code -> code.equals(lc)))
-//                    {
-//                        //move to main screen - librarian
-//                        Intent intent = new Intent(Login_Registration_Screen.this, LibrarianMainActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                    else
-//                    {
-//                        //move to main screen - student
-//                        Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        String i = AuthDB.getCurrentUser().getUid();
-//                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
-//                        startActivity(intent);
-//                        finish();
-//                    }
 
                 }
             }

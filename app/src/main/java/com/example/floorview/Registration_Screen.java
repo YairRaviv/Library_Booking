@@ -45,23 +45,8 @@ public class Registration_Screen extends AppCompatActivity
         id = ID.getText().toString();
         mail = Email.getText().toString();
         pass = Password.getText().toString();
-        // lecturer code should be a known one , so this condition will be : if(LecturerCodes.contains(Lecturercode.getText().toString()))
-//        if (LibrarianCode.getText().toString() != null || LibrarianCode.getText().toString() != "")
-//        {
-//            librarianCode = Integer.parseInt(LibrarianCode.getText().toString());
-//        }
-//        else
-//        {
-//            librarianCode = 0;
-//        }
-
-
         //validation for credentials
-        //if bla bla bla...
         register(id,mail,pass,librarianCode);
-
-
-        //upload to fire base ..
     }
 
     public void register(final String Id ,final String mail ,String Pass ,final String L_C)

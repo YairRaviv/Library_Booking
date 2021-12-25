@@ -31,7 +31,8 @@ public class ChangeCredentialsActivity extends AppCompatActivity
     FirebaseAuth AuthDB;
     String userId , email , password1 , password2 , id;
     EditText ID , Password_1 , Password_2 , Email;
-    Button Change;
+    Button Change , Cancel;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,6 +47,7 @@ public class ChangeCredentialsActivity extends AppCompatActivity
         Password_2 = (EditText)findViewById(R.id.C_Password2);
         Email = (EditText)findViewById(R.id.C_Email);
         Change = (Button)findViewById(R.id.Change);
+        Cancel = (Button)findViewById(R.id.buttoncancel);
         Change.setOnClickListener(view ->
         {
 
@@ -68,13 +70,30 @@ public class ChangeCredentialsActivity extends AppCompatActivity
             }
             else
                 {
-//                    System.out.println("entered data :");
-//                    System.out.println("user id  : "+userId);
-//                    System.out.println("new email : "+email);
-//                    System.out.println("new password : "+password1);
-//                    System.out.println("new id  : "+id);
                 ChangeCredentials(email , password1 , id);
             }
+        });
+        Cancel.setOnClickListener(view ->
+        {
+            final User[] current_user = new User[1];
+            RealTimeDB.child("Users").child(AuthDB.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>()
+            {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task)
+                {
+                    if (!task.isSuccessful())
+                    {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else
+                    {
+                        current_user[0] =  task.getResult().getValue(User.class);
+                        assert current_user[0] != null;
+                        navigateToNextScreen(current_user[0]._librarianCode);
+                    }
+                }
+            });
         });
     }
     public void ChangeCredentials(String email, String password, String id)
@@ -146,23 +165,6 @@ public class ChangeCredentialsActivity extends AppCompatActivity
                             {
                                 Toast.makeText(ChangeCredentialsActivity.this, "Done Successfully!", Toast.LENGTH_SHORT).show();
                                 navigateToNextScreen(newuser._librarianCode);
-//                                String [] acceptableLibrarianCodes = getResources().getStringArray(R.array.librarianCodes);
-//                                if(Arrays.stream(acceptableLibrarianCodes).anyMatch(code -> code.equals(lc)))
-//                                {
-//                                    Intent intent = new Intent(ChangeCredentialsActivity.this, LibrarianMainActivity.class);
-//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                    intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
-//                                else
-//                                {
-//                                    Intent intent = new Intent(ChangeCredentialsActivity.this, StudentMainActivity.class);
-//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                    intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
                             }
                         }
                     });

@@ -72,7 +72,6 @@ public class FloorActivityTable extends AppCompatActivity {
     }
 
     private void initiateViewDataOnStart(){
-//        HashMap<String, ReservableObject> floorTablesState = floorState.getFloorState();
         AsyncTasksWrapper.ExtractDataFromDbTask extractDataFromDbTask = new AsyncTasksWrapper.ExtractDataFromDbTask(FloorActivityTable.this, loadingBar, floorState);
         extractDataFromDbTask.setListener(new AsyncTasksWrapper.ExtractDataFromDbTask.AsyncTaskListener(){
             @Override

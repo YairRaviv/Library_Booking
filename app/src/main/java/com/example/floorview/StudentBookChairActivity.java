@@ -120,10 +120,6 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         if (reservationsList != null){
             for (int i=0; i<reservationsList.size(); i++){
                 String dateString = (reservationsList.get(i).reservationDate).toString();
-//                SimpleDateFormat formatter = new SimpleDateFormat(dateString);
-//                Date date = formatter.parse(dateString);
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTime(date);
                 chosen_dates.add(dateString);
             }
         }
@@ -306,7 +302,6 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
                 return view;
             }
         };;
-        //adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reservationsList);
         listview.setAdapter(adapter);
     }
 

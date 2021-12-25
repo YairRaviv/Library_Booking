@@ -70,13 +70,7 @@ public class FloorActivityClassroom extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         initiateViewDataOnStart();
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                loadingBar.dismiss();
-//            }
-//        }, 3000);
+
     }
 
 
@@ -98,7 +92,6 @@ public class FloorActivityClassroom extends AppCompatActivity {
     }
 
     private void initiateViewDataOnStart(){
-        System.out.println("**************************************************************");
         selectedClassroomsReservations.clear();
         AsyncTasksWrapper.ExtractDataFromDbTask extractDataFromDbTask = new AsyncTasksWrapper.ExtractDataFromDbTask(FloorActivityClassroom.this, loadingBar, floorState);
         extractDataFromDbTask.setListener(new AsyncTasksWrapper.ExtractDataFromDbTask.AsyncTaskListener(){
@@ -108,7 +101,6 @@ public class FloorActivityClassroom extends AppCompatActivity {
             }
         });
         extractDataFromDbTask.execute();
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     }
 
     private void updateViewComponents(HashMap<String, ReservableObject>  floorClassroomsState) {

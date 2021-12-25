@@ -124,10 +124,6 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         if (reservationsList != null){
             for (int i=0; i<reservationsList.size(); i++){
                 String dateString = (reservationsList.get(i).reservationDate).toString();
-//                SimpleDateFormat formatter = new SimpleDateFormat(dateString);
-//                Date date = formatter.parse(dateString);
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTime(date);
                 chosen_dates.add(dateString);
             }
         }
@@ -270,29 +266,6 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
         };
         executeQueryTask.setListener(listener);
         executeQueryTask.execute(queryString);
-//        ResultSet result = dbConnector.executeQuery(queryString);
-//        List<Reservation> userReservations = new ArrayList<>();
-//        String reservationId = "";
-//        List<Map<String, String>> data = new ArrayList();
-//        if (result != null) {
-//            try {
-//                while (result.next()) {
-//                    Map<String, String> dtname = new HashMap<String, String>();
-//                    Reservation currReservation = new Reservation(result.getInt("reservationId"),
-//                            result.getString("Floor").charAt(0),
-//                            result.getString("ClassRoomID"),
-//                            result.getDate("ReservationDate"),
-//                            result.getTime("StartTime"),
-//                            result.getTime("EndTime"),ReservedObjectType.classroom);
-//                    userReservations.add(currReservation);
-//                }
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//            System.out.println("Before return data");
-//            //need to go over userReservations and get all user reservations details
-//        }
-//        return userReservations;
     }
 
     private void setUserReservations(List<Reservation> userReservations) {
@@ -330,7 +303,6 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
                 return view;
             }
         };;
-        //adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reservationsList);
         listview.setAdapter(adapter);
     }
 
