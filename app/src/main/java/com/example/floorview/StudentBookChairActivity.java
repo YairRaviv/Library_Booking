@@ -247,7 +247,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
     public List<Reservation> getData() throws SQLException {
         String[] threeNextDays = new String[3];
         threeNextDays = getThreeNextDays();
-        String queryString = "SELECT * FROM Reservations WHERE userId = '" + userId + "' and ReservationDate is in ('"+threeNextDays[0]+"','"+threeNextDays[1]+"','"+threeNextDays[2]+"'";
+        String queryString = "SELECT * FROM Reservations WHERE userId = '" + userId + "' and ReservationDate is in ('"+threeNextDays[0]+"','"+threeNextDays[1]+"','"+threeNextDays[2]+"')";
         ResultSet result = dbConnector.executeQuery(queryString);
         List<Reservation> userReservations = new ArrayList<>();
         String reservationId = "";
@@ -318,7 +318,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         String[] dates_array = new String[3];
         while(count != 3){
             day = curr.get(Calendar.DAY_OF_MONTH);
-            month = curr.get(Calendar.MONTH);
+            month = curr.get(Calendar.MONTH)+1;
             year = curr.get(Calendar.YEAR);
             date = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
             dates_array[count] = date;
