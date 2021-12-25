@@ -300,7 +300,7 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.student_menu, menu);
+        inflater.inflate(R.menu.librarian_menu, menu);
         return true;
     }
 
