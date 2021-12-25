@@ -258,7 +258,7 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                    System.out.println("Before return data");
+                    //System.out.println("Before return data");
                     setUserReservations(userReservations);
                 }
             }

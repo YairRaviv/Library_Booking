@@ -45,7 +45,7 @@ public class ClassRequest implements Comparable<ClassRequest>
         return "Request Number: "+this.reservationId+"\n"+
                 "Faculty:"+this.Faculty+"\n"+
                 "Department: "+Department+"\n"+
-                "Student ID: "+this.Student_Id+"\n"+
+               // "Student ID: "+this.Student_Id+"\n"+
                 "Reason: "+this.Reason+"\n"+
                 "Number Of Students: "+this.NumOfStudents+"\n"+
                 "Student Phone Number: "+this.PhoneNumber;

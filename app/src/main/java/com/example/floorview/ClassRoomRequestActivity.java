@@ -24,6 +24,7 @@ public class ClassRoomRequestActivity extends AppCompatActivity
 {
     DBConnector dbConnector;
     String userId;
+    String realuserId;
     String startTime;
     String endTime;
     String reservationDate;
@@ -147,10 +148,10 @@ public class ClassRoomRequestActivity extends AppCompatActivity
             Reason = ReasonsSpinner.getSelectedItem().toString();
             PhoneNumber = PhoneNumberBox.getText().toString();
             NumOfStudents = Integer.parseInt(NumOfStudentsBox.getText().toString());
-            String InsertRequest_Query = "INSERT INTO ClassRequests (`ReservationID`, `StudentID`, `NumOfStudents`, `Faculty`, `Department`, `Reason` , `PhoneNumber`) " +
-                    "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
 //            String InsertRequest_Query = "INSERT INTO ClassRequests (`ReservationID`, `StudentID`, `NumOfStudents`, `Faculty`, `Department`, `Reason` , `PhoneNumber`) " +
-//                    "VALUES ('" +reservationId+"', '"+userId+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
+//                    "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
+            String InsertRequest_Query = "INSERT INTO ClassRequests (`ReservationID`, `StudentID`, `NumOfStudents`, `Faculty`, `Department`, `Reason` , `PhoneNumber`) " +
+                    "VALUES ('" +reservationId+"', '"+userId+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
             dbConnector.executeUpdate(InsertRequest_Query);
             Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
             intent.putExtra("userId",userId);
