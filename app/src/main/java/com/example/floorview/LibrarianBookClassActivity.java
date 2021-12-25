@@ -221,10 +221,10 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         String selectedDateString = selectedDateStringArr[2]+"-"+selectedDateStringArr[0]+"-"+selectedDateStringArr[1];
         int selected_month = Integer.parseInt(selectedDateStringArr[0]);
         int selected_day = Integer.parseInt(selectedDateStringArr[1]);
-        if (0 <= hourOfDay && hourOfDay <= 7){
-            Toast.makeText(LibrarianBookClassActivity.this, "Can't select time after 00:00 and before 07:00", Toast.LENGTH_SHORT).show();
+        if (20 <= hourOfDay || hourOfDay <= 7){
+            Toast.makeText(LibrarianBookClassActivity.this, "Can't select time after 20:00 and before 08:00", Toast.LENGTH_SHORT).show();
         }
-        else if (rightNow_month == selected_month && rightNow_day == selected_day && rightNow_hour < hour+1){
+        else if (rightNow_month == selected_month && rightNow_day == selected_day && hour < rightNow_hour+1){
             Toast.makeText(LibrarianBookClassActivity.this, "Can't select passed time", Toast.LENGTH_SHORT).show();
         }
         else{
