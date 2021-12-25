@@ -266,7 +266,7 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
                             result.getString("Floor").charAt(0),
                             result.getString("ClassRoomID"),
                             result.getDate("ReservationDate"),
-                            result.getTime("startTime"),
+                            result.getTime("StartTime"),
                             result.getTime("EndTime"),ReservedObjectType.classroom);
                     userReservations.add(currReservation);
                 }
