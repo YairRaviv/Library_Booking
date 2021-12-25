@@ -41,30 +41,30 @@ public class Registration_Screen extends AppCompatActivity
     public void OnClickRegister(View view)
     {
         String id,mail,pass;
-        int lecturercode;
+        String librarianCode = LibrarianCode.getText().toString();
         id = ID.getText().toString();
         mail = Email.getText().toString();
         pass = Password.getText().toString();
         // lecturer code should be a known one , so this condition will be : if(LecturerCodes.contains(Lecturercode.getText().toString()))
-        if (LibrarianCode.getText().toString() != null || LibrarianCode.getText().toString() != "")
-        {
-            lecturercode = Integer.parseInt(LibrarianCode.getText().toString());
-        }
-        else
-        {
-            lecturercode = 0;
-        }
+//        if (LibrarianCode.getText().toString() != null || LibrarianCode.getText().toString() != "")
+//        {
+//            librarianCode = Integer.parseInt(LibrarianCode.getText().toString());
+//        }
+//        else
+//        {
+//            librarianCode = 0;
+//        }
 
 
         //validation for credentials
         //if bla bla bla...
-        register(id,mail,pass,lecturercode);
+        register(id,mail,pass,librarianCode);
 
 
         //upload to fire base ..
     }
 
-    public void register(final String Id ,final String mail ,String Pass ,final int L_C)
+    public void register(final String Id ,final String mail ,String Pass ,final String L_C)
     {
         AuthDB.createUserWithEmailAndPassword(mail , Pass).addOnSuccessListener(new OnSuccessListener<AuthResult>()
         {
@@ -83,7 +83,7 @@ public class Registration_Screen extends AppCompatActivity
                             Toast.makeText(Registration_Screen.this, "Update the profile ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Registration_Screen.this , Login_Registration_Screen.class);
                             Bundle b = new Bundle();
-                            b.putInt("LC",L_C);
+                            b.putString("LC",L_C);
                             intent.putExtras(b);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
