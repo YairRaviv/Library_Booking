@@ -48,7 +48,7 @@ public class Reservation implements Comparable<Reservation> {
     public String toString(){
         String reservedObjectNum = reservedObjectId.substring(12);
         return "Reservation "+this.reservationId+"\n"+
-                "FloorState "+this.floor+"\n"+
+                "Floor "+this.floor+"\n"+
                 (reservedObjectType == ReservedObjectType.table ? "Table" : "Classroom")+reservedObjectNum+"\n"+
                 "Date "+this.reservationDate+"\n"+
                 "Start "+this.startTime+"\n"+

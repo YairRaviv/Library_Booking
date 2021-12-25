@@ -90,6 +90,7 @@ public class ClassRoomRequestActivity extends AppCompatActivity
         Cancel.setOnClickListener(view ->
         {
             Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
+            intent.putExtra("userId",userId);
             startActivity(intent);
         });
         Send.setOnClickListener(view ->

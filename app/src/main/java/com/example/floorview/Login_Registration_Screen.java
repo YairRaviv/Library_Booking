@@ -1,9 +1,11 @@
 package com.example.floorview;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Arrays;
 
 
 public class Login_Registration_Screen extends AppCompatActivity
@@ -47,22 +51,17 @@ public class Login_Registration_Screen extends AppCompatActivity
 
             String email = TxtUserName.getText().toString();
             String password = TxtPassword.getText().toString();
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                Toast.makeText(Login_Registration_Screen.this, "Empty Credentials!", Toast.LENGTH_SHORT).show();
-            }else if (password.length() < 4){
-                Toast.makeText(Login_Registration_Screen.this, "Password too short!", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                LoginUser(email , password);
-            }
-
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || !(email.contains("@")))
             {
                 Toast.makeText(Login_Registration_Screen.this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
             }
+            else if (password.length() < 4){
+                Toast.makeText(Login_Registration_Screen.this, "Password too short!", Toast.LENGTH_SHORT).show();
+            }
             else
             {
                 LoginUser(email , password);
+                return;
             }
 
         });
@@ -100,9 +99,10 @@ public class Login_Registration_Screen extends AppCompatActivity
                 {
                     Toast.makeText(Login_Registration_Screen.this, "successfully log in " , Toast.LENGTH_SHORT).show();
 
-                    final int[] lcs = new int[1];
+                    final String [] lcs = new String[1];
                     RealTimeDB.child("Users").child(AuthDB.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>()
                     {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task)
                         {
@@ -114,30 +114,32 @@ public class Login_Registration_Screen extends AppCompatActivity
                             {
                                 User current_user =  task.getResult().getValue(User.class);
                                 assert current_user != null;
-                                lcs[0] = current_user._librarianCode;
+                                navigateToNextScreen(current_user._librarianCode);
+//                                lcs[0] = current_user._librarianCode;
                             }
                         }
                     });
-                    int lc = lcs[0];
-                    if(lc!=0)
-                    {
-                        //move to main screen - librarian
-                        Intent intent = new Intent(Login_Registration_Screen.this, LibrarianMainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
-                        startActivity(intent);
-                        finish();
-                    }
-                    else
-                    {
-                        //move to main screen - student
-                        Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        String i = AuthDB.getCurrentUser().getUid();
-                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
-                        startActivity(intent);
-                        finish();
-                    }
+//                    String lc = lcs[0];
+//                    String [] acceptableLibrarianCodes = getResources().getStringArray(R.array.librarianCodes);
+//                    if(Arrays.stream(acceptableLibrarianCodes).anyMatch(code -> code.equals(lc)))
+//                    {
+//                        //move to main screen - librarian
+//                        Intent intent = new Intent(Login_Registration_Screen.this, LibrarianMainActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                    else
+//                    {
+//                        //move to main screen - student
+//                        Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        String i = AuthDB.getCurrentUser().getUid();
+//                        intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
+//                        startActivity(intent);
+//                        finish();
+//                    }
 
                 }
             }
@@ -150,5 +152,29 @@ public class Login_Registration_Screen extends AppCompatActivity
             }
         });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void navigateToNextScreen(String userLc){
+        String [] acceptableLibrarianCodes = getResources().getStringArray(R.array.librarianCodes);
+        if(Arrays.stream(acceptableLibrarianCodes).anyMatch(code -> code.equals(userLc)))
+        {
+            //move to main screen - librarian
+            Intent intent = new Intent(Login_Registration_Screen.this, LibrarianMainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            //move to main screen - student
+            Intent intent = new Intent(Login_Registration_Screen.this, StudentMainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            String i = AuthDB.getCurrentUser().getUid();
+            intent.putExtra("userId",AuthDB.getCurrentUser().getUid());
+            startActivity(intent);
+            finish();
+        }
     }
 }

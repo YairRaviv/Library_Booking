@@ -4,8 +4,8 @@ public class User
 {
     public String _id;
     public String _mail;
-    public int _librarianCode;
-    public User(String ID,String mail,int lc)
+    public String _librarianCode;
+    public User(String ID,String mail,String lc)
     {
         _id=ID;
         _mail = mail;
@@ -19,7 +19,7 @@ public class User
     }
     public User()
     {
-        this._librarianCode = -2;
+        this._librarianCode = "";
         this._id = "00000000";
         this._mail = "null@null";
     }

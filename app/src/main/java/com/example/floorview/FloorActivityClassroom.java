@@ -188,7 +188,7 @@ public class FloorActivityClassroom extends AppCompatActivity {
                                 return;
                             }
                             else {
-                                Intent intent = new Intent(FloorActivityClassroom.this, userType == UserType.student ? StudentBookClassActivity.class : LibrarianBookClassActivity.class);
+                                Intent intent = new Intent(FloorActivityClassroom.this, userType == UserType.student ? StudentMainActivity.class : LibrarianMainActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("userId", userId);
                                 intent.putExtras(bundle);

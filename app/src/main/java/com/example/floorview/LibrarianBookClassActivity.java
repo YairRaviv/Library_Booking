@@ -64,7 +64,6 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         selectClassBtn = (Button) LibrarianBookClassActivity.this.findViewById(R.id.btnSelectClass);
         selectTimeBtn = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
         selectClassBtn.setEnabled(false);
-        selectTimeBtn.setEnabled(false);
 
         // Spinner
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
@@ -77,8 +76,6 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
         }
-        Button show_start_time_dialog = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
-        show_start_time_dialog.setEnabled(false);
         Button btnReservations = (Button) LibrarianBookClassActivity.this.findViewById(R.id.btnReservations);
         btnReservations.setEnabled(false);
 
@@ -88,23 +85,8 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
     private void initiateReservations() throws SQLException, ParseException {
         System.out.println("in MyReservations()");
         ListView listview = (ListView) findViewById(R.id.listview);
-        reservationsList =  getData();
+        getData();
         // user has no reservations yet
-        if (reservationsList.isEmpty()){
-            ListView lv = (ListView)findViewById(R.id.listview);
-            emptyText = (TextView)findViewById(R.id.empty);
-            emptyText.setText("You Have No Reservations");
-            lv.setEmptyView(emptyText);
-        }
-        else {
-            System.out.println("after userReservationsView()");
-            //instantiate custom adapter
-            MyCustomAdapter myAdapter = new MyCustomAdapter(reservationsList, this);
-
-            //handle listview and assign adapter
-            ListView lView = (ListView) findViewById(R.id.listview);
-            lView.setAdapter(myAdapter);
-        }
     }
 
     @Override
@@ -169,11 +151,13 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         }
         Calendar[] disabledDays = days.toArray(new Calendar[days.size()]);
         datePickerDialog.setDisabledDays(disabledDays);
-        datePickerDialog.setThemeDark(true);
-        datePickerDialog.show(LibrarianBookClassActivity.this.getFragmentManager(), "DatePickerDialog");
-        Button show_start_time_dialog = (Button) LibrarianBookClassActivity.this.findViewById(R.id.show_start_time_dialog);
-        show_start_time_dialog.setEnabled(true);
-
+        if(datePickerDialog.getDisabledDays().length >=3){
+            Toast.makeText(LibrarianBookClassActivity.this, "No available dates", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            datePickerDialog.setThemeDark(true);
+            datePickerDialog.show(LibrarianBookClassActivity.this.getFragmentManager(), "DatePickerDialog");
+        }
     }
 
     public void SelectDateButton(View view) throws SQLException, ParseException {
@@ -189,11 +173,13 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         dateText.setText(date);
-        selectTimeBtn.setEnabled(true);
-
     }
 
     private void showTimePickerDialog(){
+        if(dateText == null || dateText.getText().toString().equals("")){
+            Toast.makeText(LibrarianBookClassActivity.this, "Please Select Date First", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int style = AlertDialog.THEME_HOLO_DARK;
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 this,
@@ -203,7 +189,6 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
                 minute,
                 true);
         timePickerDialog.setTitle("Select Time");
-
         timePickerDialog.show();
     }
 
@@ -245,38 +230,88 @@ public class LibrarianBookClassActivity extends AppCompatActivity implements Dat
         else{
             timeText.setText(time);
         }
-        if (dateText.getText().toString() != null && timeText.getText().toString() != null){
+        if (!dateText.getText().toString().equals("") && !timeText.getText().toString().equals("")){
             selectClassBtn.setEnabled(true);
         }
     }
 
-    public List<Reservation> getData() throws SQLException {
+    public void getData() throws SQLException {
         String[] threeNextDays = new String[3];
+        List<Reservation> userReservations = new ArrayList<>();
         threeNextDays = getThreeNextDays();
         String queryString = "SELECT * FROM ClassReservations WHERE userId = '" + userId + "' and ReservationDate in ('"+threeNextDays[0]+"','"+threeNextDays[1]+"','"+threeNextDays[2]+"')";
-        ResultSet result = dbConnector.executeQuery(queryString);
-        List<Reservation> userReservations = new ArrayList<>();
-        String reservationId = "";
-        List<Map<String, String>> data = new ArrayList();
-        if (result != null) {
-            try {
-                while (result.next()) {
-                    Map<String, String> dtname = new HashMap<String, String>();
-                    Reservation currReservation = new Reservation(result.getInt("reservationId"),
-                            result.getString("Floor").charAt(0),
-                            result.getString("ClassRoomID"),
-                            result.getDate("ReservationDate"),
-                            result.getTime("StartTime"),
-                            result.getTime("EndTime"),ReservedObjectType.classroom);
-                    userReservations.add(currReservation);
+        AsyncTasksWrapper.ExecuteQueryTask executeQueryTask = new AsyncTasksWrapper.ExecuteQueryTask(LibrarianBookClassActivity.this);
+        AsyncTasksWrapper.ExecuteQueryTask.AsyncTaskListener listener = new AsyncTasksWrapper.ExecuteQueryTask.AsyncTaskListener() {
+            final List<Reservation> userReservations = new ArrayList<>();
+
+            @Override
+            public void onAsyncTaskFinished(ResultSet result) {
+                List<Map<String, String>> data = new ArrayList();
+                if (result != null) {
+                    try {
+                        while (result.next()) {
+                            Map<String, String> dtname = new HashMap<String, String>();
+                            Reservation currReservation = new Reservation(result.getInt("reservationId"),
+                                    result.getString("Floor").charAt(0),
+                                    result.getString("ClassRoomID"),
+                                    result.getDate("ReservationDate"),
+                                    result.getTime("StartTime"),
+                                    result.getTime("EndTime"), ReservedObjectType.classroom);
+                            userReservations.add(currReservation);
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    System.out.println("Before return data");
+                    setUserReservations(userReservations);
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
-            System.out.println("Before return data");
-            //need to go over userReservations and get all user reservations details
+
+        };
+        executeQueryTask.setListener(listener);
+        executeQueryTask.execute(queryString);
+//        ResultSet result = dbConnector.executeQuery(queryString);
+//        List<Reservation> userReservations = new ArrayList<>();
+//        String reservationId = "";
+//        List<Map<String, String>> data = new ArrayList();
+//        if (result != null) {
+//            try {
+//                while (result.next()) {
+//                    Map<String, String> dtname = new HashMap<String, String>();
+//                    Reservation currReservation = new Reservation(result.getInt("reservationId"),
+//                            result.getString("Floor").charAt(0),
+//                            result.getString("ClassRoomID"),
+//                            result.getDate("ReservationDate"),
+//                            result.getTime("StartTime"),
+//                            result.getTime("EndTime"),ReservedObjectType.classroom);
+//                    userReservations.add(currReservation);
+//                }
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//            System.out.println("Before return data");
+//            //need to go over userReservations and get all user reservations details
+//        }
+//        return userReservations;
+    }
+
+    private void setUserReservations(List<Reservation> userReservations) {
+        this.reservationsList = userReservations;
+        if (reservationsList.isEmpty()){
+            ListView lv = (ListView)findViewById(R.id.listview);
+            emptyText = (TextView)findViewById(R.id.empty);
+            emptyText.setText("You Have No Reservations");
+            lv.setEmptyView(emptyText);
         }
-        return userReservations;
+        else {
+            System.out.println("after userReservationsView()");
+            //instantiate custom adapter
+            MyCustomAdapter myAdapter = new MyCustomAdapter(reservationsList, this);
+
+            //handle listview and assign adapter
+            ListView lView = (ListView) findViewById(R.id.listview);
+            lView.setAdapter(myAdapter);
+        }
     }
 
     SimpleAdapter sa;
