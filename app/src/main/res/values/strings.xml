@@ -6,6 +6,10 @@
         <item>C</item>
         <item>D</item>
     </string-array>
+    <string-array name="librarianCodes">
+        <item>057968356</item>
+        <item>057692741</item>
+    </string-array>
     <string name="select_floor">Select Floor</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>

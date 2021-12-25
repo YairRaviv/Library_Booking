@@ -197,7 +197,7 @@ public class FloorActivityTable extends AppCompatActivity {
                                 selectionPopupDialog.dismiss();
                             }
                             else {
-                                Intent intent = new Intent(FloorActivityTable.this, StudentBookChairActivity.class);
+                                Intent intent = new Intent(FloorActivityTable.this, StudentMainActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("userId", userId);
                                 intent.putExtras(bundle);

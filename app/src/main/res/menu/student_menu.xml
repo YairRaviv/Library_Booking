@@ -14,7 +14,7 @@
     <item
         android:id="@+id/student_menu_change_details"
         android:icon="@drawable/users_new"
-        android:title="Change Password"
+        android:title="Change Credentials"
         app:showAsAction="never"/>
     <item
         android:id="@+id/student_menu_logout"

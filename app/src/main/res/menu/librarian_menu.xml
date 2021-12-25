@@ -11,7 +11,7 @@
         app:showAsAction="never"/>
     <item
         android:id="@+id/librarian_menu_change_details"
-        android:title="Change Password"
+        android:title="Change Credentials"
         app:showAsAction="never"/>
     <item
         android:id="@+id/librarian_menu_logout"
