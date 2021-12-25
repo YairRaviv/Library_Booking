@@ -121,24 +121,24 @@ public class ClassRoomRequestActivity extends AppCompatActivity
                 }
             }
             //extract student id (the real one) from FireBase
-            final String[] StudentID = new String[1];
-            RealTimeDB.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>()
-            {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task)
-                {
-                    if (!task.isSuccessful())
-                    {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    }
-                    else
-                    {
-                        User current_user =  task.getResult().getValue(User.class);
-                        assert current_user != null;
-                        StudentID[0] = current_user._id;
-                    }
-                }
-            });
+//            final String[] StudentID = new String[1];
+//            RealTimeDB.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>()
+//            {
+//                @Override
+//                public void onComplete(@NonNull Task<DataSnapshot> task)
+//                {
+//                    if (!task.isSuccessful())
+//                    {
+//                        Log.e("firebase", "Error getting data", task.getException());
+//                    }
+//                    else
+//                    {
+//                        User current_user =  task.getResult().getValue(User.class);
+//                        assert current_user != null;
+//                        StudentID[0] = current_user._id;
+//                    }
+//                }
+//            });
 
 
             Faculty = facultiesSpinner.getSelectedItem().toString();
@@ -146,8 +146,10 @@ public class ClassRoomRequestActivity extends AppCompatActivity
             Reason = ReasonsSpinner.getSelectedItem().toString();
             PhoneNumber = PhoneNumberBox.getText().toString();
             NumOfStudents = Integer.parseInt(NumOfStudentsBox.getText().toString());
+//            String InsertRequest_Query = "INSERT INTO ClassRequests (`ReservationID`, `StudentID`, `NumOfStudents`, `Faculty`, `Department`, `Reason` , `PhoneNumber`) " +
+//                    "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
             String InsertRequest_Query = "INSERT INTO ClassRequests (`ReservationID`, `StudentID`, `NumOfStudents`, `Faculty`, `Department`, `Reason` , `PhoneNumber`) " +
-                    "VALUES ('" +reservationId+"', '"+StudentID[0]+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
+                    "VALUES ('" +reservationId+"', '"+userId+"', '"+NumOfStudents+"', '"+Faculty+"', '"+Department+"', '"+Reason+"' , '"+PhoneNumber+"' );";
             dbConnector.executeUpdate(InsertRequest_Query);
             Intent intent = new Intent(ClassRoomRequestActivity.this , StudentMainActivity.class);
             intent.putExtra("userId",userId);
