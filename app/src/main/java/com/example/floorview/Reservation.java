@@ -10,6 +10,7 @@ public class Reservation implements Comparable<Reservation> {
     Date reservationDate;
     Time startTime;
     Time endTime;
+    String status;
     ReservedObjectType reservedObjectType;
 
     public Reservation(int reservationId, char floor, String reservedObjectId, Date reservationDate, Time startTime, Time endTime, ReservedObjectType reservedObjectType){
@@ -21,6 +22,18 @@ public class Reservation implements Comparable<Reservation> {
         this.endTime = endTime;
         this.reservedObjectType = reservedObjectType;
     }
+
+    public Reservation(int reservationId, char floor, String reservedObjectId, Date reservationDate, Time startTime, Time endTime, String status, ReservedObjectType reservedObjectType){
+        this.reservationId = reservationId;
+        this.floor = floor;
+        this.reservedObjectId = reservedObjectId;
+        this.reservationDate = reservationDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+        this.reservedObjectType = reservedObjectType;
+    }
+
     public Reservation(char floor, String reservedObjectId, Date reservationDate, Time startTime, Time endTime, ReservedObjectType reservedObjectType){
         this.reservationId = -1;
         this.floor = floor;
@@ -47,11 +60,20 @@ public class Reservation implements Comparable<Reservation> {
 
     public String toString(){
         String reservedObjectNum = reservedObjectId.substring(12);
-        return "Reservation "+this.reservationId+"\n"+
-                "Floor "+this.floor+"\n"+
-                (reservedObjectType == ReservedObjectType.table ? "Table" : "Classroom")+reservedObjectNum+"\n"+
-                "Date "+this.reservationDate+"\n"+
-                "Start "+this.startTime+"\n"+
-                "End "+this.endTime;
+        if (status == null) {
+            return "Reservation " + this.reservationId + "\n" +
+                    "Floor " + this.floor + "\n" +
+                    (reservedObjectType == ReservedObjectType.table ? "Table" : "Classroom") + reservedObjectNum + "\n" +
+                    "Date " + this.reservationDate + "\n" +
+                    "Start " + this.startTime + "\n" +
+                    "End " + this.endTime;
+        }
+        return "Reservation " + this.reservationId + "\n" +
+                "Floor " + this.floor + "\n" +
+                (reservedObjectType == ReservedObjectType.table ? "Table" : "Classroom") + reservedObjectNum + "\n" +
+                "Date " + this.reservationDate + "\n" +
+                "Start " + this.startTime + "\n" +
+                "End " + this.endTime + "\n" +
+                "Status " + this.status;
     }
 }

@@ -252,7 +252,8 @@ public class StudentBookClassActivity extends AppCompatActivity implements DateP
                                     result.getString("ClassRoomID"),
                                     result.getDate("ReservationDate"),
                                     result.getTime("StartTime"),
-                                    result.getTime("EndTime"), ReservedObjectType.classroom);
+                                    result.getTime("EndTime"),
+                                    result.getString("Status"), ReservedObjectType.classroom);
                             userReservations.add(currReservation);
                         }
                     } catch (SQLException throwables) {
