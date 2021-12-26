@@ -143,7 +143,7 @@ public class StudentBookChairActivity extends AppCompatActivity implements DateP
         }
         Calendar[] disabledDays = days.toArray(new Calendar[days.size()]);
         datePickerDialog.setDisabledDays(disabledDays);
-        if(datePickerDialog.getDisabledDays().length >=3){
+        if(datePickerDialog.getDisabledDays()!=null && datePickerDialog.getDisabledDays().length >=3){
             Toast.makeText(StudentBookChairActivity.this, "No available dates", Toast.LENGTH_SHORT).show();
         }
         else {
