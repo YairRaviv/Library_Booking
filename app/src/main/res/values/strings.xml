@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Floor VIew</string>
+    <string name="app_name">Library Booking</string>
     <string-array name="floors">
         <item>A</item>
         <item>B</item>
@@ -9,6 +9,9 @@
     <string-array name="librarianCodes">
         <item>057968356</item>
         <item>057692741</item>
+        <item>057692745</item>
+        <item>057692746</item>
+        <item>057692747</item>
     </string-array>
     <string name="select_floor">Select Floor</string>
     <string name="title_activity_login">LoginActivity</string>
