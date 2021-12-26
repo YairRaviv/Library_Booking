@@ -34,7 +34,7 @@ public class Registration_Screen extends AppCompatActivity
         ID = (EditText)findViewById(R.id.ID);
         Password = (EditText)findViewById(R.id.Password);
         Email = (EditText)findViewById(R.id.Email);
-        LibrarianCode = (EditText)findViewById(R.id.Lecturer_code);
+        LibrarianCode = (EditText)findViewById(R.id.ID);
 
     }
 
